@@ -50,7 +50,7 @@
   <header class="bg-amber-800 text-amber-50 p-6 shadow-md rounded-b-3xl">
     <div class="max-w-5xl mx-auto">
       <h1 class="text-3xl md:text-4xl font-bold text-center mb-2">El Viatge de l'Animació</h1>
-      <p class="text-center text-amber-200 mb-6 text-lg">De la Idea a la Pantalla • Guia Didàctica Universitària</p>
+      <p class="text-center text-amber-200 mb-6 text-lg">De la Idea a la Pantalla</p>
       
       <div class="flex justify-center flex-wrap gap-2 md:gap-4">
         <button id="btn-fases" onclick="canviarTab('fases')" class="px-6 py-2 rounded-full font-semibold transition-all duration-300 bg-amber-100 text-amber-900 shadow-inner flex items-center gap-1">
@@ -471,6 +471,12 @@
 
   </main>
 
+  <!-- PEU DE PÀGINA -->
+  <footer class="mt-12 text-center text-stone-500 text-sm border-t border-stone-200 pt-6">
+    <p class="font-semibold">Un desenvolupament de Xavier Ribes</p>
+    <p>Departament de Comunicació Audiovisual de la UAB</p>
+  </footer>
+
   <script>
     // --- ESTATS GLOBALS DE DESBLOQUEIG ---
     let fasesDesbloquejades = false;
@@ -534,7 +540,7 @@
       { pregunta: "A què fa referència el terme 'Temporary music track' (temp track)?", opcions: ["Una pista musical provisional utilitzada durant el muntatge.", "Un tipus de microfonia d'estudi especial per a orquestres.", "La llista de reproducció comercial per a la promoció web."], correcta: 0 },
       { pregunta: "Quin concepte descriu el treball musical associat anteriorment al teatre i considerat precursor del so de cinema?", opcions: ["La música de cambra", "El poema simfònic", "L'òpera buffa real"], correcta: 1 },
       { pregunta: "Per què s'utilitza un 'màster mut' amb les veus de doblatge activades en compondre música incidental?", opcions: ["Per donar espai sonor i tensió sense ofuscar els diàlegs.", "Per reduir el consum de dades del programari d'edició.", "Per camuflar les imperfeccions tècniques de l'animació."], correcta: 0 },
-      { pregunta: "Com es compensa la manca de pressupost en produccions d'animació europees davant de les grans productores?", opcions: ["Cal suplir-lo amb llibertat creativa i propostes originals.", "Cal prescindir completament de tots els efectes de so foley.", "Cal limitar les obres a curts experimentals de pocs minuts."], correcta: 0 },
+      { pregunta: "Como es compensa la manca de pressupost en produccions d'animació europees davant de les grans productores?", opcions: ["Cal suplir-lo amb llibertat creativa i propostes originals.", "Cal prescindir completament de tots els efectes de so foley.", "Cal limitar les obres a curts experimentals de pocs minuts."], correcta: 0 },
       { pregunta: "En quina pel·lícula clàssica de Disney la imatge es va sincronitzar directament seguint el ritme previ de l'orquestra?", opcions: ["Fantasia (1940)", "El viatge de Chihiro", "Toy Story (1995)"], correcta: 0 },
       { pregunta: "Per què hi ha una relació tan íntima de satisfacció humana amb la sincronització en produccions d'animació?", opcions: ["Per complir les directrius de les plataformes digitals.", "Per una reacció plaent de l'oïda i de la vista unides.", "Perquè l'animació de dibuixos es fa sempre amb cançons."], correcta: 1 },
       { pregunta: "A l'hora de compondre per a animació, és obligatori usar exclusivament instruments d'orquestra simfònica?", opcions: ["Sí, és una norma acadèmica de la producció clàssica.", "No, es poden fer servir sintetitzadors i sons digitals.", "Només és obligatori durant la creació de l'animàtica."], correcta: 1 },
@@ -556,12 +562,12 @@
       { pregunta: "Quina definició recull millor l'essència de l'animació?", opcions: ["Un procés on el programari informàtic pinta lliurement.", "La il·lusió de moviment generada per imatges ràpides.", "Un format exclusiu per a l'edició de curts de cinema."], correcta: 1 },
       { pregunta: "Si s'utilitza la tècnica de 'Pose to Pose' (posa a posa), què s'està fent?", opcions: ["Dibuixar de manera aleatòria en funció de la inspiració.", "Dibuixar primer les posicions clau abans de fer el mig.", "Dibuixar de forma seguida cada fotograma del primer al fi."], correcta: 1 },
       { pregunta: "Quin avantatge té l'ús de capes ('Layers') en animació digital?", opcions: ["Reduir les despeses generals del material de l'estudi.", "Moure parts del cos sencer de forma aïllada.", "Sincronitzar dues o més càmeres de manera automàtica."], correcta: 1 },
-      { pregunta: "Dins l'entorn acadèmic especialitzat d'estudis d'animació, la participació de professionals en actiu permet...", opcions: ["Tenir una formació més teòrica i llunyana de l'estudi.", "Formar l'estudiantat en els mètodes reals de la línia.", "Limitar l'ús de programes informàtics a la fase teòrica."], correcta: 1 },
-      { pregunta: "Dins del flux de treball d'un projecte acadèmic o professional, a quina fase correspon l'escriptura i desglòs del guió tècnic?", opcions: ["A la fase de Postproducció.", "A la fase de Preproducció.", "A la fase de Distribució."], correcta: 1 },
+      { pregunta: "Dins de la indústria de l'animació, comptar amb equips de professionals en actiu permet...", opcions: ["Tenir una formació més teòrica i llunyana de l'estudi.", "Formar els nous equips en els mètodes reals de la línia de treball.", "Limitar l'ús de programes informàtics a la fase teòrica."], correcta: 1 },
+      { pregunta: "Dins del flux de treball d'un projecte de caràcter professional, a quina fase correspon l'escriptura i desglòs del guió tècnic?", opcions: ["A la fase de Postproducció.", "A la fase de Preproducció.", "A la fase de Distribució."], correcta: 1 },
       { pregunta: "Com es coneix el fenomen perceptiu pel qual la nostra ment dóna continuïtat a imatges fixes passades veloçment?", opcions: ["Persistència retinal (fenomen Phi)", "Ajustament de color del pla de fons", "Distorsió per l'edició de muntatge"], correcta: 0 },
-      { pregunta: "Històricament, quina tradició musical va heretar el so de cinema?", opcions: ["La música programàtica i el poema simfònic descriptiu.", "El format de concert de cambra tradicional del barroc.", "L'òpera còmica i el teatre líric de caràcter clàssic."], correcta: 0 },
+      { pregunta: "Històricament, quina tradició musical va heretar el so de cinema?", opcions: ["La música programàtica i el poema simfònic descriptiu.", "Le format de concert de cambra tradicional del barroc.", "L'òpera còmica i el teatre líric de caràcter clàssic."], correcta: 0 },
       { pregunta: "Què significa que una música tingui un caràcter 'descriptiu'?", opcions: ["La música de fons que només descriu la vida del director.", "La partitura que imita elements físics naturals i de soroll.", "El text interpretat que defineix la història del projecte."], correcta: 1 },
-      { pregunta: "Per què s'indica que de vegades el disseny de so no ha d'estar massa en primer pla de forma conscient?", opcions: ["Permetre reduir els decibels de les pistes de la mescla.", "Estalviar espai a les targetes digitals de reproducció.", "Evitar que la música eclipsi i distregui de la història."], correcta: 2 },
+      { pregunta: "Per why s'indica que de vegades el disseny de so no ha d'estar massa en primer pla de forma conscient?", opcions: ["Permetre reduir els decibels de les pistes de la mescla.", "Estalviar espai a les targetes digitals de reproducció.", "Evitar que la música eclipsi i distregui de la història."], correcta: 2 },
       { pregunta: "Quin d'aquests programes és un estàndard en animació, simulació i modelat 3D a nivell global?", opcions: ["Adobe Reader", "Blender 3D", "GIMP d'art"], correcta: 1 },
       { pregunta: "L'efecte de 'Motion Blur' en moviment serveix per a...", opcions: ["Fer que l'escena visual sembli més opaca per estalviar color.", "Simular el comportament dels objectes quan van molt ràpids.", "Amagar detalls que no s'han pogut netejar de forma adequada."], correcta: 1 },
       { pregunta: "La tècnica de moure físicament ninots de fang o ninots articulats i capturar-los fotograma a fotograma és...", opcions: ["L'animació 2D digital", "L'animació Stop-Motion", "La rotoscòpia en línia"], correcta: 1 },
@@ -570,36 +576,36 @@
       { pregunta: "Dins la Postproducció, què engloba el procés de muntatge de vídeo?", opcions: ["Ordenar de forma seqüencial els plans buscant el ritme.", "Redactar el guió de text que servirà per a la premsa.", "Dibuixar els esbossos dels nous personatges de l'obra."], correcta: 0 },
       { pregunta: "Quin és el darrer pas de color definitiu a la fase de postproducció?", opcions: ["L'etalonatge o correcció final de color (Color grading).", "La creació del guió de colors (Color script) de la sèrie.", "L'exportació final de les còpies d'emissió del projecte."], correcta: 0 },
       { pregunta: "En quina etapa s'acostuma a registrar la partitura musical definitiva d'un llargmetratge?", opcions: ["Quan es defineixen els primers diàlegs del guió.", "Quan el muntatge d'imatges està tancat (Picture Lock).", "Quan s'inicia la producció artística dels personatges."], correcta: 1 },
-      { pregunta: "Com es treballa el ritme en el guió il·lustrat (storyboard)?", opcions: ["Ajustant el temps de lectura i de transició de les vinyetes.", "Definint línies amb diferents gruixos de traç en el dibuix.", "El ritme és un factor que no es treballa en aquesta fase."], correcta: 0 },
-      { pregunta: "Dins del disseny visual, què és el 'Color Script'?", opcions: ["Un document amb el guió literari escrit amb color.", "Un sistema informàtic que pinta les escenes de l'art.", "Una guia visual que descriu els canvis de llum i color."], correcta: 2 },
+      { pregunta: "Com es treballa el ritme en el guió il·lustrat (storyboard)?", opcions: ["Ajustant el temps de lectura i de transició de les vinyetes.", "Definint línies com diferents gruixos de traç en el dibuix.", "El ritme és un factor que no es treballa en aquesta fase."], correcta: 0 },
+      { pregunta: "Dins del disseny visual, què és el 'Color Script'?", opcions: ["Un document amb el guió literari escrit amb de color.", "Un system informàtic que pinta les escenes de l'art.", "Una guia visual que descriu els canvis de llum i color."], correcta: 2 },
       { pregunta: "Quin és el compromís essencial del personatge animat en pantalla?", opcions: ["Mantenir una dinàmica completament realista en cada pla.", "Transmetre intenció, vida pròpia i sentiment de forma visual.", "Garantir que la veu estigui gravada pel doblador més conegut."], correcta: 1 },
       { pregunta: "La tècnica de dibuixar sobre imatges d'actors reals prèviament enregistrades s'anomena...", opcions: ["Rotoscòpia", "Layout fílmic", "Keyframing net"], correcta: 0 },
       { pregunta: "Quin principi d'animació descriu el retard en la detenció dels elements secundaris d'un cos (cabell, roba)?", opcions: ["Follow Through i Overlapping Action", "Squash and Stretch d'animació general", "Slow In i Slow Out de velocitat física"], correcta: 0 },
       { pregunta: "En l'entorn de la formació especialitzada en animació, a què fa referència el terme 'pipeline de producció'?", opcions: ["Un canal físic de distribució del metratge als cinemes.", "El flux de treball i de fitxers de forma organitzada.", "Un mètode per comprimir les pistes de so de les mescles."], correcta: 1 },
       { pregunta: "La 'Carta de rodatge' analògica històrica coordinava principalment:", opcions: ["Els canvis de torn del personal d'estudi.", "El temps per fotograma lligat als sons dels diàlegs i les capes.", "El nom dels cinemes on s'emetria la pel·lícula."], correcta: 1 },
       { pregunta: "Com es simula visualment el pes, la inèrcia o la gravetat d'un personatge d'animació?", opcions: ["Es defineixen a través del timing i l'espaiat dels dibuixos.", "Es programen amb les targetes gràfiques durant el render.", "Es deleguen a l'equip de so quand fa els efectes acústics."], correcta: 0 },
-      { pregunta: "El principi de 'Slow In and Slow Out' d'animació d'estudis d'animació estableix que...", opcions: ["Que el moviment orgànic és lineal i de velocitat homogènia.", "Que els cossos triguen a agafar velocitat i a frenar-se.", "Que tot el metratge de la pel·lícula s'ha de veure lent."], correcta: 1 },
+      { pregunta: "El principi de 'Slow In and Slow Out' d'animació estableix que...", opcions: ["Que el moviment orgànic és lineal i de velocitat homogènia.", "Que els cossos triguen a agafar velocitat i a frenar-se.", "Que tot el metratge de la pel·lícula s'ha de veure lent."], correcta: 1 },
       { pregunta: "Què significa 'Posar en escena' (Staging) segons la teoria clàssica?", opcions: ["Muntar l'estructura per a l'assaig físic de l'equip de veus.", "Presentar una idea o acció de manera completament clara i neta.", "Trobar les referències de focus per als dibuixants de fons."], correcta: 1 },
       { pregunta: "En què es basa l''Exageració' (Exaggeration) com a principi de l'animació?", opcions: ["Un error tècnic provocat per les eines digitals d'edició.", "Un recurs per transmetre la intenció o emoció amb més força.", "Una norma per fer que els fons tinguin molta més brillantor."], correcta: 1 },
-      { pregunta: "Què s'entén per disseny de personatge amb carisma o 'Appeal'?", opcions: ["Que el disseny visual és senzill i utilitza poques línies.", "Que és bonic segons els cànons d'estètica clàssics de l'art.", "Que el disseny del personatge és magnètic, atractiu i llegible."], correcta: 2 },
-      { pregunta: "Quin element visual a la pantalla ajuda a l'enregistrament de l'orquestra en sincronia?", opcions: ["Una barra mòbil o streamer a la pantalla com a referència.", "La lletra del guió sincronitzada de manera tipus karaoke.", "Un efecte d'augment gradual de la il·luminació d'una escena."], correcta: 0 },
+      { pregunta: "Què s'entén per disseny de personatge amb carisma o 'Appeal'?", opcions: ["Que el disseny visual és senzill i utilitza poques línies.", "Que és bonic segons els cànons d'estètica clàssics de l'art.", "Que el disseny del personatge és magnètic, atractiu i lliure."], correcta: 2 },
+      { pregunta: "Quin element visual a la pantalla ajuda a l'enregistrament de l'orquestra en sincronia?", opcions: ["Una barra mòbil o streamer a la pantalla como a referència.", "La lletra del guió sincronitzada de manera tipus karaoke.", "Un efecte d'augment gradual de la il·luminació d'una escena."], correcta: 0 },
       { pregunta: "Què és el 'Compositing' o Composició Digital?", opcions: ["La partitura general de la cançó principal de la pel·lícula.", "La integració de fons, personatges, efectes i llums en un pla.", "La plantilla de pressupost feta pel departament de producció."], correcta: 1 },
       { pregunta: "En el context d'una planificació de producció, el document anomenat 'Full de ruta' o 'Milestones' serveix per...", opcions: ["Establir fites crítiques de lliurament al llarg del projecte.", "Configurar la il·luminació de la sala de mescla de so foley.", "Redactar el guió de text definitiu que es lliurarà a la premsa."], correcta: 0 },
       { pregunta: "Com influeix la bona gestió de Producció en la qualitat del resultat?", opcions: ["Optimitzar terminis i recursos per guanyar temps per a l'art.", "Eliminar la necessitat d'enregistrar una banda sonora de so.", "Decidir el nombre exacte de cinemes que emetran la pel·lícula."], correcta: 0 },
       { pregunta: "A la fase de concepció, quin document descriu l'evolució literària global d'una idea?", opcions: ["El tractament", "El plànol visual", "La partitura de so"], correcta: 0 },
       { pregunta: "En animació, la sincronització dels moviments bucals amb els sons de la veu és el...", opcions: ["Lip-sync o sincronització labial", "Etalonatge i correcció de color", "Format de rotació de la càmera"], correcta: 0 },
-      { pregunta: "Com influeix el dissenyador de so de la banda sonora i so en l'emoció narrada?", opcions: ["Afegeix efectes sonors que reforcen l'ambient de cada pla.", "Canvia la línia artística de dibuix dels propis personatges.", "Redueix la grandària digital dels fitxers de vídeo comprimit."], correcta: 0 },
-      { pregunta: "Quin objectiu té establir un correcte flux de treball de dades?", opcions: ["Assegurar que els fitxers passen ràpid i sense incidències.", "Incrementar de manera digital els decibels de la pista de so.", "Reemplaçar els dibuixants tradicionals per programes de render."], correcta: 0 },
-      { pregunta: "Quina característica han de complir els fons (Backgrounds)?", opcions: ["S'han de pintar a 24 dibuixos per segon de manera obligatòria.", "Han d'ambientar l'escena sense treure el focus del personatge.", "Han de ser d'un color homogeni i fosc per millorar el render."], correcta: 1 },
+      { pregunta: "Com influeix el dissenyador de so de la banda sonora i so en l'emoció narrada?", opcions: ["Afegeix efectes sonors que reforcen l'ambient de cada pla.", "Canvia la línia artística de dibuix dels propis personatges.", "Redueix la grandària digital dels fitxers de vídeo de so."], correcta: 0 },
+      { pregunta: "Quin objectiu té establir un correcte flux de treball de dades?", opcions: ["Assegurar que els fitxers passen ràpid i sense incidències.", "Incrementar de manera digital els decibels de la pista de so.", "Reemplaçar els dibuixants de la fase inicial pels computadors."], correcta: 0 },
+      { pregunta: "Quina característica han de complir els fons (Backgrounds)?", opcions: ["S'han de pintar a 24 dibuixos per segon de manera obligatòria.", "Han d'ambientar l'escena sans treure el focus del personatge.", "Han de ser d'un color homogeni i fosc per millorar el render."], correcta: 1 },
       { pregunta: "En producció 3D, què representa el procés de 'Rigging'?", opcions: ["Crear un esquelet digital de control perquè el model es mogui.", "La combinació i muntatge final de la línia de diàlegs del film.", "La revisió dels guions per corregir l'ortografia de les veus."], correcta: 0 },
       { pregunta: "Històricament, l'origen de la paraula 'Cartoon' prové de...", opcions: ["Dels cartrons fets a escala real de referència per a frescos.", "Dels dibuixos satírics inicials publicats a diaris impresos.", "Dels envasos protectors del cel·luloide clàssic del cinema."], correcta: 1 },
       { pregunta: "Quin és l'indicador fonamental de planificació temporal que gestiona producció?", opcions: ["El cronòmetre manual utilitzat en les fases d'animació clau.", "El cronograma de seguiment de fites per controlar el projecte.", "El metrònom emprat per l'orquestra durant l'assaig musical."], correcta: 1 },
-      { pregunta: "Com actuen els efectes de sala (Foley) a nivell visual?", opcions: ["Aconseguir que la càmera es mogui d'una manera més lenta.", "Aportar versemblança física a través dels sorolls del món real.", "Sincronitzar dues o més pistes de la partitura de la música."], correcta: 1 },
+      { pregunta: "Com actuen els efectes de sala (Foley) a nivell visual?", opcions: ["Aconseguir que la càmera es mogui d'una manera més lents.", "Aportar versemblança física a través dels sorolls del món real.", "Sincronitzar dues o més pistes de la partitura de la música."], correcta: 1 },
       { pregunta: "Un moviment 'lineal homogeni' en animació indica...", opcions: ["Que un objecte es mou a velocitat constant sense acceleració.", "Que fa trajectòries amb arcs molt pronunciats per pantalla.", "Que té un ritme variable i brusc d'un fotograma a un altre."], correcta: 0 },
       { pregunta: "El prinsip de 'Solid Drawing' (Dibuix Sòlid) demana a l'artista d'animació:", opcions: ["Entendre el personatge en un espai 3D amb volum, pes i eixos.", "Mantenir un traç molt rígid i gruixut per a totes les línies.", "Dibuixar sobre superfícies molt dures per evitar vibracions."], correcta: 0 },
       { pregunta: "L'art d'explicar la història i situar la càmera perquè s'entengui ràpidament l'acció és la base de quin principi?", opcions: ["Squash and Stretch", "Staging (Posada en escena)", "Timing"], correcta: 1 },
       { pregunta: "Per què l'animàtica és considerada la guia de referència visual per a la línia de disseny?", opcions: ["Perquè és el guió en text consolidat i corregit de l'obra.", "Perquè defineix el timing i plans reals abans de l'animació.", "Perquè conté la gamma final de colors de cadascun dels plans."], correcta: 1 },
-      { pregunta: "En el context de la producció d'una sèrie d'animació, el 'pilot' serveix per...", opcions: ["Demostrar la viabilitat tècnica i comercial del projecte davant dels inversors.", "Definir els contractes definitius de distribució per a totes les sales de cinema.", "Compondre i enregistrar de manera final tota la música incidental de la sèrie."], correcta: 0 },
+      { pregunta: "En el context de la producció d'una sèrie d'animació, el 'pilot' serveix per...", opcions: ["Demostrar la viabilitat tècnica i comercial del projecte davant dels inversors.", "Definir els contractes de distribució per a totes les sales.", "Compondre i enregistrar de manera final tota la música de la sèrie."], correcta: 0 },
       { pregunta: "Sota quin concepte s'organitza tot el so d'una producció (diàlegs, foley, incidental, barreges)?", opcions: ["El disseny de so / Banda Sonora", "El render d'àudio definitiu", "L'etalonatge acústic final"], correcta: 0 },
       { pregunta: "Com defineixen l'animació professional Frank Thomas i Ollie Johnston?", opcions: ["Com l'acte de donar vida i personalitat als personatges a través del moviment.", "Com la reproducció tècnica de fotogrames fixos per assolir un ritme constant.", "Com la combinació d'efectes físics i de fons pintats en un suport analògic."], correcta: 0 },
       { pregunta: "Què és un 'Line Test' durant la producció d'animació tradicional?", opcions: ["Un assaig d'imatges sense pintar per valorar el moviment.", "Una eina digital per calcular la densitat dels traços d'art.", "La prova informàtica de rendiment de les targetes de render."], correcta: 0 },
@@ -614,9 +620,9 @@
       { pregunta: "Quina descripció respon millor al concepte de 'Foley Artist' (Tècnic de sala)?", opcions: ["Qui s'encarrega d'enregistrar manualment els efectes de soroll.", "Qui realitza els primers dibuixos expressius dels personatges.", "Qui compon els diferents temes musicals de la música incidental."], correcta: 0 },
       { pregunta: "Què és la 'Música Diegètica'?", opcions: ["La música de fons que l'audiència percep des de fora del món.", "La música que forma part real de l'entorn de la pròpia escena.", "La melodia d'assaig provisional usada durant la preproducció."], correcta: 1 },
       { pregunta: "Què significa l'expressió 'Picture Lock'?", opcions: ["El tancament definitiu de muntatge per poder afegir color i so.", "La confirmació final dels dissenys de personatges i escenaris.", "L'error d'arxiu que impedeix editar de nou el material gràfic."], correcta: 0 },
-      { pregunta: "Quin és l'objectiu d'analitzar de forma crítica les 'Milestones' d'un calendari?", opcions: ["Verificar que la producció compleix els terminis del calendari.", "Mesurar el volum i la freqüència dels altaveus de les sales.", "Exportar els diferents talls i les còpies finals de la sèrie."], correcta: 0 },
+      { pregunta: "Quin és l'objectiu d'analitzar de forma crítica les 'Milestones' d'un calendari?", opcions: ["Verificar que la producció compleix els terminis del calendari.", "Mesurar el volum i la freqüència dels altaveus de les sales.", "Exportar os diferents talls i les còpies finals de la sèrie."], correcta: 0 },
       { pregunta: "En l'animació tradicional, per què serveix el registre de 'Peg Bar' (barra de registre)?", opcions: ["Alinear perfectament el paper durant el dibuix i la captura.", "Calcular el valor i les despeses dels materials tradicionals.", "Verificar l'estat dels llapis i dels elements de dibuix físic."], correcta: 0 },
-      { pregunta: "A la postproducció digital, què significa el procés de 'Conformació'?", opcions: ["Reemplaçar els plans de baixa resolució per la versió final.", "Crear els dibuixos i els dissenys inicials de personatges.", "Aprovar el guió de text definitiu de la fase de producció."], correcta: 0 },
+      { pregunta: "A la postproducció digital, què significa el procés de 'Conformació'?", opcions: ["Reemplaçar os plans de baixa resolució per la versió final.", "Crear els dibuixos i els dissenys inicials de personatges.", "Aprovar el guió de text definitiu de la fase de producció."], correcta: 0 },
       { pregunta: "Per què la llum és un element clau dins de l'etapa de Composició Digital?", opcions: ["Integrar de manera unificada les ombres i tons de cada element.", "Garantir un menor pes de les dades de cadascuna de les escenes.", "Enregistrar els efectes acústics d'estudi durant la mescla."], correcta: 0 },
       { pregunta: "Quin és l'objectiu del 'Color Script' respecte al to psicològic de la pel·lícula?", opcions: ["Definir les atmosferes cromàtiques que acompanyen la història.", "Decidir de forma lliure els tons de color dels personatges.", "Triar el nom definitiu d'acord amb el format de distribució."], correcta: 0 },
       { pregunta: "En animació, la sincronització dels moviments bucals amb els sons de la veu és el...", opcions: ["Sincronitzar les boques dels dibuixos amb l'àudio enregistrat.", "Configurar els nivells de color i d'etalonatge d'una escena.", "Organitzar de manera provisional les pistes de so de la mescla."], correcta: 0 }
@@ -1211,7 +1217,7 @@
           icona.className = "w-6 h-6 rounded-full bg-red-500 border-red-600 flex-shrink-0 flex items-center justify-center text-white text-xs font-bold";
           icona.innerHTML = "✗";
         } else {
-          boto.className = "w-full text-left p-4 rounded-xl border-2 transition-all flex items-center gap-4 bg-gray-50 border-gray-100 text-gray-400 opacity-50";
+          boto.className = "w-full text-left p-4 rounded-xl border-2 transition-all flex items-center gap-4 bg-gray-55 border-gray-100 text-gray-400 opacity-50";
         }
       });
 
@@ -1245,8 +1251,8 @@
       }
 
       if (puntuacio >= 9) {
-        comentari.className = "text-green-600 font-bold text-lg mb-4";
-        comentari.innerText = "Excel·lent! Demostres un gran domini del disseny, el moviment tècnic de l'animació i la complexitat de la postproducció final.";
+        comentari.className = "text-green-600 font-medium text-lg mb-4";
+        comentari.innerText = "Demostres un gran domini del disseny, el moviment tècnic de l'animació i la complexitat de la postproducció final.";
         
         // Creació dinàmica del bloc de recompensa (descarregable de la infografia utilitzant la URL RAW de GitHub)
         const rewardBlock = document.createElement('div');
@@ -1264,13 +1270,13 @@
         `;
         comentari.parentNode.insertBefore(rewardBlock, comentari.nextSibling);
       } else if (puntuacio >= 7) {
-        comentari.className = "text-amber-600 font-semibold text-lg mb-8";
+        comentari.className = "text-amber-600 font-medium text-lg mb-8";
         comentari.innerText = "Molt bona feina! Tens una sòlida base dels 12 principis clàssics de l'animació de Thomas i Johnston. Aconsegueix un 9 o 10 per desbloquejar la infografia descarregable!";
       } else if (puntuacio >= 5) {
         comentari.className = "text-orange-600 font-medium text-lg mb-8";
         comentari.innerText = "Aprovat! Pot ser d'ajuda repassar els conceptes de foley, gestió de fites (milestones) i temps (timing) per assolir la puntuació màxima i descarregar la infografia.";
       } else {
-        comentari.className = "text-red-500 font-bold text-lg mb-8";
+        comentari.className = "text-red-500 font-medium text-lg mb-8";
         comentari.innerText = "Encara pots millorar. Et recomanem revisar les diferents tasques de preproducció, producció i postproducció per tornar-ho a provar.";
       }
     }
