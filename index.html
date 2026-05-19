@@ -7,7 +7,7 @@
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght=300..700&family=Quicksand:wght=300..700&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Quicksand', sans-serif;
@@ -477,6 +477,9 @@
     <p>Departament de Comunicació Audiovisual de la UAB</p>
   </footer>
 
+  <!-- GLOBAL FLOAT TOOLTIP -->
+  <div id="global-tooltip" class="pointer-events-none absolute hidden z-50 max-w-[280px] bg-stone-900/95 text-stone-100 text-xs rounded-xl p-3 shadow-2xl transition-opacity duration-150 border border-stone-700/80 leading-relaxed"></div>
+
   <script>
     // --- ESTATS GLOBALS DE DESBLOQUEIG ---
     let fasesDesbloquejades = false;
@@ -511,6 +514,24 @@
       { id: "dr4", text: "Munta l'animàtica provisional i tanca l'edició audiovisual final.", cat: "muntatge" },
       { id: "dr5", text: "S'encarrega dels efectes de sala foley i del balanç global del volum.", cat: "so" }
     ];
+
+    // --- BANC D'EXPLICACIONS DE CADA TASCA SENSE INDICAR FASES ---
+    const tascaExplicacions = {
+      "tf1": "Es defineix la premissa, el to, el tractament literari i el guió final que guiarà tota la producció de la pel·lícula.",
+      "tf2": "S'il·lustra el guió pla a pla i es munta amb temps i àudio de referència per establir el ritme inicial de la història.",
+      "tf3": "Es dissenyen de manera gràfica els personatges, la seva utileria (props) i els fons, creant els fulls de proporció i estil.",
+      "tf4": "Es graven les veus abans de començar a animar perquè l'equip pugui sincronitzar el moviment de la boca amb els sons.",
+      "tf5": "Es col·loquen els personatges dins dels fons de l'escena, triant lents de càmera, composició física i trajectòries.",
+      "tf6": "Es dibuixen o defineixen digitalment les poses clau de l'acció per transmetre el pes, la personalitat i la intenció.",
+      "tf7": "Es dibuixen els fotogrames intermedis per aconseguir fluïdesa i es poleix el traç final seguint els fulls de model.",
+      "tf8": "S'aplica la paleta cromàtica definida a cada fotograma netejat, organitzant-los de manera neta en capes.",
+      "tf9": "Document que registra frame a frame la correspondència entre diàleg, ordres de càmera, exposició i capes de dibuix.",
+      "tf10": "S'ajusten i equilibren de forma unificada tots els elements d'àudio: diàlegs, efectes de sala foley i música.",
+      "tf11": "Composició i gravació final de la partitura que acompanya emocionalment les accions i plans de la pel·lícula.",
+      "tf12": "S'uneixen totes les escenes polides en la línia de temps definitiva per fixar el ritme i el tall final de la història.",
+      "tf13": "Enregistrament de diàlegs adaptats per a diferents mercats idiomàtics, encaixant els matisos de veu amb l'animació.",
+      "tf14": "Exportació de l'arxiu definitiu de màxima qualitat de so i imatge per a cinemes (DCP), plataformes o TV."
+    };
 
     // Variables de control d'estat de les posicions dels objectes
     let tasquesRestants = [];
@@ -562,8 +583,8 @@
       { pregunta: "Quina definició recull millor l'essència de l'animació?", opcions: ["Un procés on el programari informàtic pinta lliurement.", "La il·lusió de moviment generada per imatges ràpides.", "Un format exclusiu per a l'edició de curts de cinema."], correcta: 1 },
       { pregunta: "Si s'utilitza la tècnica de 'Pose to Pose' (posa a posa), què s'està fent?", opcions: ["Dibuixar de manera aleatòria en funció de la inspiració.", "Dibuixar primer les posicions clau abans de fer el mig.", "Dibuixar de forma seguida cada fotograma del primer al fi."], correcta: 1 },
       { pregunta: "Quin avantatge té l'ús de capes ('Layers') en animació digital?", opcions: ["Reduir les despeses generals del material de l'estudi.", "Moure parts del cos sencer de forma aïllada.", "Sincronitzar dues o més càmeres de manera automàtica."], correcta: 1 },
-      { pregunta: "Dins de la indústria de l'animació, comptar amb equips de professionals en actiu permet...", opcions: ["Tenir una formació més teòrica i llunyana de l'estudi.", "Formar els nous equips en els mètodes reals de la línia de treball.", "Limitar l'ús de programes informàtics a la fase teòrica."], correcta: 1 },
-      { pregunta: "Dins del flux de treball d'un projecte de caràcter professional, a quina fase correspon l'escriptura i desglòs del guió tècnic?", opcions: ["A la fase de Postproducció.", "A la fase de Preproducció.", "A la fase de Distribució."], correcta: 1 },
+      { pregunta: "Dins del pipeline modern d'un estudi d'animació, la col·laboració interdisciplinària permet...", opcions: ["Optimitzar de manera integrada els recursos tècnics de cada departament.", "Limitar l'ús d'ordinadors exclusivament a la postproducció de la cinta.", "Reduir el temps dedicat a l'escriptura literària del guió d'estudi."], correcta: 0 },
+      { pregunta: "Dins del flux de treball d'una pel·lícula, a quina fase correspon l'escriptura i desglòs del guió tècnic?", opcions: ["A la fase de Postproducció.", "A la fase de Preproducció.", "A la fase de Distribució."], correcta: 1 },
       { pregunta: "Com es coneix el fenomen perceptiu pel qual la nostra ment dóna continuïtat a imatges fixes passades veloçment?", opcions: ["Persistència retinal (fenomen Phi)", "Ajustament de color del pla de fons", "Distorsió per l'edició de muntatge"], correcta: 0 },
       { pregunta: "Històricament, quina tradició musical va heretar el so de cinema?", opcions: ["La música programàtica i el poema simfònic descriptiu.", "Le format de concert de cambra tradicional del barroc.", "L'òpera còmica i el teatre líric de caràcter clàssic."], correcta: 0 },
       { pregunta: "Què significa que una música tingui un caràcter 'descriptiu'?", opcions: ["La música de fons que només descriu la vida del director.", "La partitura que imita elements físics naturals i de soroll.", "El text interpretat que defineix la història del projecte."], correcta: 1 },
@@ -577,14 +598,14 @@
       { pregunta: "Quin és el darrer pas de color definitiu a la fase de postproducció?", opcions: ["L'etalonatge o correcció final de color (Color grading).", "La creació del guió de colors (Color script) de la sèrie.", "L'exportació final de les còpies d'emissió del projecte."], correcta: 0 },
       { pregunta: "En quina etapa s'acostuma a registrar la partitura musical definitiva d'un llargmetratge?", opcions: ["Quan es defineixen els primers diàlegs del guió.", "Quan el muntatge d'imatges està tancat (Picture Lock).", "Quan s'inicia la producció artística dels personatges."], correcta: 1 },
       { pregunta: "Com es treballa el ritme en el guió il·lustrat (storyboard)?", opcions: ["Ajustant el temps de lectura i de transició de les vinyetes.", "Definint línies com diferents gruixos de traç en el dibuix.", "El ritme és un factor que no es treballa en aquesta fase."], correcta: 0 },
-      { pregunta: "Dins del disseny visual, què és el 'Color Script'?", opcions: ["Un document amb el guió literari escrit amb de color.", "Un system informàtic que pinta les escenes de l'art.", "Una guia visual que descriu els canvis de llum i color."], correcta: 2 },
+      { pregunta: "Dins del disseny visual, què és el 'Color Script'?", opcions: ["Un document amb el guió literari escrit amb color.", "Un system informàtic que pinta les escenes de l'art.", "Una guia visual que descriu els canvis de llum i color."], correcta: 2 },
       { pregunta: "Quin és el compromís essencial del personatge animat en pantalla?", opcions: ["Mantenir una dinàmica completament realista en cada pla.", "Transmetre intenció, vida pròpia i sentiment de forma visual.", "Garantir que la veu estigui gravada pel doblador més conegut."], correcta: 1 },
       { pregunta: "La tècnica de dibuixar sobre imatges d'actors reals prèviament enregistrades s'anomena...", opcions: ["Rotoscòpia", "Layout fílmic", "Keyframing net"], correcta: 0 },
-      { pregunta: "Quin principi d'animació descriu el retard en la detenció dels elements secundaris d'un cos (cabell, roba)?", opcions: ["Follow Through i Overlapping Action", "Squash and Stretch d'animació general", "Slow In i Slow Out de velocitat física"], correcta: 0 },
+      { pregunta: "Quin prinsip de l'animació descriu el retard en la detenció dels elements secundaris d'un cos (cabell, roba)?", opcions: ["Follow Through i Overlapping Action", "Squash and Stretch d'animació general", "Slow In i Slow Out de velocitat física"], correcta: 0 },
       { pregunta: "En l'entorn de la formació especialitzada en animació, a què fa referència el terme 'pipeline de producció'?", opcions: ["Un canal físic de distribució del metratge als cinemes.", "El flux de treball i de fitxers de forma organitzada.", "Un mètode per comprimir les pistes de so de les mescles."], correcta: 1 },
       { pregunta: "La 'Carta de rodatge' analògica històrica coordinava principalment:", opcions: ["Els canvis de torn del personal d'estudi.", "El temps per fotograma lligat als sons dels diàlegs i les capes.", "El nom dels cinemes on s'emetria la pel·lícula."], correcta: 1 },
       { pregunta: "Com es simula visualment el pes, la inèrcia o la gravetat d'un personatge d'animació?", opcions: ["Es defineixen a través del timing i l'espaiat dels dibuixos.", "Es programen amb les targetes gràfiques durant el render.", "Es deleguen a l'equip de so quand fa els efectes acústics."], correcta: 0 },
-      { pregunta: "El principi de 'Slow In and Slow Out' d'animació estableix que...", opcions: ["Que el moviment orgànic és lineal i de velocitat homogènia.", "Que els cossos triguen a agafar velocitat i a frenar-se.", "Que tot el metratge de la pel·lícula s'ha de veure lent."], correcta: 1 },
+      { pregunta: "El principi clàssic de 'Slow In and Slow Out' de l'animació estableix que...", opcions: ["Que el moviment orgànic és lineal i de velocitat homogènia.", "Que els cossos triguen a agafar velocitat i a frenar-se.", "Que tot el metratge de la pel·lícula s'ha de veure lent."], correcta: 1 },
       { pregunta: "Què significa 'Posar en escena' (Staging) segons la teoria clàssica?", opcions: ["Muntar l'estructura per a l'assaig físic de l'equip de veus.", "Presentar una idea o acció de manera completament clara i neta.", "Trobar les referències de focus per als dibuixants de fons."], correcta: 1 },
       { pregunta: "En què es basa l''Exageració' (Exaggeration) com a principi de l'animació?", opcions: ["Un error tècnic provocat per les eines digitals d'edició.", "Un recurs per transmetre la intenció o emoció amb més força.", "Una norma per fer que els fons tinguin molta més brillantor."], correcta: 1 },
       { pregunta: "Què s'entén per disseny de personatge amb carisma o 'Appeal'?", opcions: ["Que el disseny visual és senzill i utilitza poques línies.", "Que és bonic segons els cànons d'estètica clàssics de l'art.", "Que el disseny del personatge és magnètic, atractiu i lliure."], correcta: 2 },
@@ -596,7 +617,7 @@
       { pregunta: "En animació, la sincronització dels moviments bucals amb els sons de la veu és el...", opcions: ["Lip-sync o sincronització labial", "Etalonatge i correcció de color", "Format de rotació de la càmera"], correcta: 0 },
       { pregunta: "Com influeix el dissenyador de so de la banda sonora i so en l'emoció narrada?", opcions: ["Afegeix efectes sonors que reforcen l'ambient de cada pla.", "Canvia la línia artística de dibuix dels propis personatges.", "Redueix la grandària digital dels fitxers de vídeo de so."], correcta: 0 },
       { pregunta: "Quin objectiu té establir un correcte flux de treball de dades?", opcions: ["Assegurar que els fitxers passen ràpid i sense incidències.", "Incrementar de manera digital els decibels de la pista de so.", "Reemplaçar els dibuixants de la fase inicial pels computadors."], correcta: 0 },
-      { pregunta: "Quina característica han de complir els fons (Backgrounds)?", opcions: ["S'han de pintar a 24 dibuixos per segon de manera obligatòria.", "Han d'ambientar l'escena sans treure el focus del personatge.", "Han de ser d'un color homogeni i fosc per millorar el render."], correcta: 1 },
+      { pregunta: "Quina característica han de complir els fons (Backgrounds)?", opcions: ["S'Han de pintar a 24 dibuixos per segon de manera obligatòria.", "Han d'ambientar l'escena sans treure el focus del personatge.", "Han de ser d'un color homogeni i fosc per millorar el render."], correcta: 1 },
       { pregunta: "En producció 3D, què representa el procés de 'Rigging'?", opcions: ["Crear un esquelet digital de control perquè el model es mogui.", "La combinació i muntatge final de la línia de diàlegs del film.", "La revisió dels guions per corregir l'ortografia de les veus."], correcta: 0 },
       { pregunta: "Històricament, l'origen de la paraula 'Cartoon' prové de...", opcions: ["Dels cartrons fets a escala real de referència per a frescos.", "Dels dibuixos satírics inicials publicats a diaris impresos.", "Dels envasos protectors del cel·luloide clàssic del cinema."], correcta: 1 },
       { pregunta: "Quin és l'indicador fonamental de planificació temporal que gestiona producció?", opcions: ["El cronòmetre manual utilitzat en les fases d'animació clau.", "El cronograma de seguiment de fites per controlar el projecte.", "El metrònom emprat per l'orquestra durant l'assaig musical."], correcta: 1 },
@@ -605,7 +626,7 @@
       { pregunta: "El prinsip de 'Solid Drawing' (Dibuix Sòlid) demana a l'artista d'animació:", opcions: ["Entendre el personatge en un espai 3D amb volum, pes i eixos.", "Mantenir un traç molt rígid i gruixut per a totes les línies.", "Dibuixar sobre superfícies molt dures per evitar vibracions."], correcta: 0 },
       { pregunta: "L'art d'explicar la història i situar la càmera perquè s'entengui ràpidament l'acció és la base de quin principi?", opcions: ["Squash and Stretch", "Staging (Posada en escena)", "Timing"], correcta: 1 },
       { pregunta: "Per què l'animàtica és considerada la guia de referència visual per a la línia de disseny?", opcions: ["Perquè és el guió en text consolidat i corregit de l'obra.", "Perquè defineix el timing i plans reals abans de l'animació.", "Perquè conté la gamma final de colors de cadascun dels plans."], correcta: 1 },
-      { pregunta: "En el context de la producció d'una sèrie d'animació, el 'pilot' serveix per...", opcions: ["Demostrar la viabilitat tècnica i comercial del projecte davant dels inversors.", "Definir els contractes de distribució per a totes les sales.", "Compondre i enregistrar de manera final tota la música de la sèrie."], correcta: 0 },
+      { pregunta: "En el context de la producció d'un llargmetratge, el 'teaser' serveix per...", opcions: ["Seduir possibles distribuïdors i finançadors mostrant el to visual inicial.", "Començar immediatament el doblatge definitiu en tots els idiomes previstos.", "Dissenyar frame a frame les línies finals de clean-up per a l'animador."], correcta: 0 },
       { pregunta: "Sota quin concepte s'organitza tot el so d'una producció (diàlegs, foley, incidental, barreges)?", opcions: ["El disseny de so / Banda Sonora", "El render d'àudio definitiu", "L'etalonatge acústic final"], correcta: 0 },
       { pregunta: "Com defineixen l'animació professional Frank Thomas i Ollie Johnston?", opcions: ["Com l'acte de donar vida i personalitat als personatges a través del moviment.", "Com la reproducció tècnica de fotogrames fixos per assolir un ritme constant.", "Com la combinació d'efectes físics i de fons pintats en un suport analògic."], correcta: 0 },
       { pregunta: "Què és un 'Line Test' durant la producció d'animació tradicional?", opcions: ["Un assaig d'imatges sense pintar per valorar el moviment.", "Una eina digital per calcular la densitat dels traços d'art.", "La prova informàtica de rendiment de les targetes de render."], correcta: 0 },
@@ -620,9 +641,9 @@
       { pregunta: "Quina descripció respon millor al concepte de 'Foley Artist' (Tècnic de sala)?", opcions: ["Qui s'encarrega d'enregistrar manualment els efectes de soroll.", "Qui realitza els primers dibuixos expressius dels personatges.", "Qui compon els diferents temes musicals de la música incidental."], correcta: 0 },
       { pregunta: "Què és la 'Música Diegètica'?", opcions: ["La música de fons que l'audiència percep des de fora del món.", "La música que forma part real de l'entorn de la pròpia escena.", "La melodia d'assaig provisional usada durant la preproducció."], correcta: 1 },
       { pregunta: "Què significa l'expressió 'Picture Lock'?", opcions: ["El tancament definitiu de muntatge per poder afegir color i so.", "La confirmació final dels dissenys de personatges i escenaris.", "L'error d'arxiu que impedeix editar de nou el material gràfic."], correcta: 0 },
-      { pregunta: "Quin és l'objectiu d'analitzar de forma crítica les 'Milestones' d'un calendari?", opcions: ["Verificar que la producció compleix els terminis del calendari.", "Mesurar el volum i la freqüència dels altaveus de les sales.", "Exportar os diferents talls i les còpies finals de la sèrie."], correcta: 0 },
+      { pregunta: "Quin és l'objectiu d'analitzar de forma crítica les 'Milestones' d'un calendari?", opcions: ["Verificar que la producció s'ajusta als terminis del calendari.", "Mesurar el volum i la freqüència dels altaveus de les sales.", "Exportar els diferents talls i les còpies finals de la sèrie."], correcta: 0 },
       { pregunta: "En l'animació tradicional, per què serveix el registre de 'Peg Bar' (barra de registre)?", opcions: ["Alinear perfectament el paper durant el dibuix i la captura.", "Calcular el valor i les despeses dels materials tradicionals.", "Verificar l'estat dels llapis i dels elements de dibuix físic."], correcta: 0 },
-      { pregunta: "A la postproducció digital, què significa el procés de 'Conformació'?", opcions: ["Reemplaçar os plans de baixa resolució per la versió final.", "Crear els dibuixos i els dissenys inicials de personatges.", "Aprovar el guió de text definitiu de la fase de producció."], correcta: 0 },
+      { pregunta: "A la postproducció digital, què significa el procés de 'Conformació'?", opcions: ["Reemplaçar els plans de baixa resolució per la versió final.", "Crear els dibuixos i els dissenys inicials de personatges.", "Aprovar el guió de text definitiu de la fase de producció."], correcta: 0 },
       { pregunta: "Per què la llum és un element clau dins de l'etapa de Composició Digital?", opcions: ["Integrar de manera unificada les ombres i tons de cada element.", "Garantir un menor pes de les dades de cadascuna de les escenes.", "Enregistrar els efectes acústics d'estudi durant la mescla."], correcta: 0 },
       { pregunta: "Quin és l'objectiu del 'Color Script' respecte al to psicològic de la pel·lícula?", opcions: ["Definir les atmosferes cromàtiques que acompanyen la història.", "Decidir de forma lliure els tons de color dels personatges.", "Triar el nom definitiu d'acord amb el format de distribució."], correcta: 0 },
       { pregunta: "En animació, la sincronització dels moviments bucals amb els sons de la veu és el...", opcions: ["Sincronitzar les boques dels dibuixos amb l'àudio enregistrat.", "Configurar els nivells de color i d'etalonatge d'una escena.", "Organitzar de manera provisional les pistes de so de la mescla."], correcta: 0 }
@@ -721,6 +742,56 @@
       }
     }
 
+    // --- ENGINY DEL GLOBAL FLOATING TOOLTIP CLÀSSIC (NO RETALLAT) ---
+    function showTooltip(ev, itemId) {
+      const tooltip = document.getElementById('global-tooltip');
+      const text = tascaExplicacions[itemId];
+      if (!text) return;
+
+      tooltip.innerText = text;
+      tooltip.classList.remove('hidden');
+      positionTooltip(ev);
+    }
+
+    function moveTooltip(ev) {
+      positionTooltip(ev);
+    }
+
+    function hideTooltip() {
+      const tooltip = document.getElementById('global-tooltip');
+      tooltip.classList.add('hidden');
+    }
+
+    function positionTooltip(ev) {
+      const tooltip = document.getElementById('global-tooltip');
+      const rect = tooltip.getBoundingClientRect();
+      const tooltipWidth = rect.width || 250;
+      const tooltipHeight = rect.height || 100;
+      const gap = 15;
+
+      const scrollX = window.scrollX || window.pageXOffset || 0;
+      const scrollY = window.scrollY || window.pageYOffset || 0;
+
+      let left = ev.clientX + gap + scrollX;
+      let top = ev.clientY + gap + scrollY;
+
+      // Protecció contra sobrepassar el marge dret de la finestra (viewport)
+      if (ev.clientX + gap + tooltipWidth > window.innerWidth - 15) {
+        left = ev.clientX - tooltipWidth - gap + scrollX;
+      }
+      // Protecció contra sobrepassar el marge inferior de la finestra (viewport)
+      if (ev.clientY + gap + tooltipHeight > window.innerHeight - 15) {
+        top = ev.clientY - tooltipHeight - gap + scrollY;
+      }
+
+      // Evitar valors negatius que surtin pels costats superiors
+      if (left < scrollX + 10) left = scrollX + 10;
+      if (top < scrollY + 10) top = scrollY + 10;
+
+      tooltip.style.left = left + 'px';
+      tooltip.style.top = top + 'px';
+    }
+
     // --- ENGINY DEL JOC 1: DESBLOQUEIG DE FASES (VALIDACIÓ AL FINAL SENSE PERDRE PROGRÉS) ---
     function generarJocFases() {
       fasesState = { pre: [], pro: [], post: [] };
@@ -751,6 +822,7 @@
         item.innerText = tasca.text;
 
         item.ondragstart = function(ev) {
+          hideTooltip();
           ev.dataTransfer.setData("text", tasca.id);
           highlightZonesFases(true);
         };
@@ -761,6 +833,12 @@
           ev.stopPropagation();
           selectFaseItem(tasca.id);
         };
+        
+        // Esdeveniments interactius per mostrar explicació flotant
+        item.onmouseenter = function(ev) { showTooltip(ev, tasca.id); };
+        item.onmousemove = function(ev) { moveTooltip(ev); };
+        item.onmouseleave = function() { hideTooltip(); };
+
         container.appendChild(item);
       });
 
@@ -779,6 +857,7 @@
           pill.innerText = tasca.text;
 
           pill.ondragstart = function(ev) {
+            hideTooltip();
             ev.dataTransfer.setData("text", tasca.id);
             highlightZonesFases(true);
           };
@@ -789,6 +868,12 @@
             ev.stopPropagation();
             selectFaseItem(tasca.id);
           };
+
+          // Esdeveniments interactius per mostrar explicació flotant també a les col·locades
+          pill.onmouseenter = function(ev) { showTooltip(ev, tasca.id); };
+          pill.onmousemove = function(ev) { moveTooltip(ev); };
+          pill.onmouseleave = function() { hideTooltip(); };
+
           targetList.appendChild(pill);
         });
       });
@@ -1274,7 +1359,7 @@
         comentari.innerText = "Molt bona feina! Tens una sòlida base dels 12 principis clàssics de l'animació de Thomas i Johnston. Aconsegueix un 9 o 10 per desbloquejar la infografia descarregable!";
       } else if (puntuacio >= 5) {
         comentari.className = "text-orange-600 font-medium text-lg mb-8";
-        comentari.innerText = "Aprovat! Pot ser d'ajuda repassar els conceptes de foley, gestió de fites (milestones) i temps (timing) per assolir la puntuació màxima i descarregar la infografia.";
+        comentari.innerText = "Aprovat! Pot ser d'ajuda repassar els conceptes de foley, gestió de fites (milestones) i temps (timing) per assolir la puntuació mñaxima i descarregar la infografia.";
       } else {
         comentari.className = "text-red-500 font-medium text-lg mb-8";
         comentari.innerText = "Encara pots millorar. Et recomanem revisar les diferents tasques de preproducció, producció i postproducció per tornar-ho a provar.";
