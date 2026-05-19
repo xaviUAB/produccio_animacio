@@ -7,7 +7,7 @@
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght=300..700&family=Quicksand:wght=300..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Quicksand', sans-serif;
@@ -44,432 +44,484 @@
     }
   </style>
 </head>
-<body class="min-h-screen bg-stone-50 text-gray-800 pb-12">
+<body class="min-h-screen bg-stone-50 text-gray-800 pb-12 flex flex-col justify-between">
 
-  <!-- CAPÇALERA -->
-  <header class="bg-amber-800 text-amber-50 p-6 shadow-md rounded-b-3xl">
-    <div class="max-w-5xl mx-auto">
-      <h1 class="text-3xl md:text-4xl font-bold text-center mb-2">El Viatge de l'Animació</h1>
-      <p class="text-center text-amber-200 mb-6 text-lg">De la Idea a la Pantalla</p>
-      
-      <div class="flex justify-center flex-wrap gap-2 md:gap-4">
-        <button id="btn-fases" onclick="canviarTab('fases')" class="px-6 py-2 rounded-full font-semibold transition-all duration-300 bg-amber-100 text-amber-900 shadow-inner flex items-center gap-1">
-          El Procés <span id="lock-fases">🔒</span>
-        </button>
-        <button id="btn-rols" onclick="canviarTab('rols')" class="px-6 py-2 rounded-full font-semibold transition-all duration-300 bg-amber-700/50 hover:bg-amber-600 text-amber-100 flex items-center gap-1">
-          L'Equip <span id="lock-rols">🔒</span>
-        </button>
-        <button id="btn-quiz" onclick="canviarTab('quiz')" disabled class="px-6 py-2 rounded-full font-semibold transition-all duration-300 bg-stone-300 text-stone-500 opacity-60 cursor-not-allowed flex items-center gap-1">
-          Posa't a Prova! <span id="lock-quiz">🔒</span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- CONTINGUT PRINCIPAL -->
-  <main class="max-w-6xl mx-auto px-4 pt-10">
-
-    <!-- TAB 1: EL PROCÉS (FASES) -->
-    <section id="sec-fases" class="space-y-8 animate-fade-in">
-      
-      <!-- JOC DE DESBLOQUEIG DE FASES -->
-      <div id="fases-joc" class="bg-white rounded-3xl p-8 shadow-md border-2 border-amber-200 max-w-4xl mx-auto space-y-6">
-        <div class="text-center space-y-2">
-          <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Repte de Desbloqueig</span>
-          <h2 class="text-2xl font-bold text-gray-800">Ordena el flux de treball</h2>
-          <p class="text-gray-600 text-sm max-w-xl mx-auto">
-            Arrossega cada tasca fins a la seva fase de producció corresponent. També pots fer clic sobre una tasca i després sobre el seu destí per col·locar-la.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 pt-4">
-          <!-- Columna d'origen de tasques -->
-          <div id="fases-source-zone" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDrop(event, 'source')" onclick="handleZoneClick('source')" class="md:col-span-1 bg-stone-100 p-4 rounded-2xl border-2 border-stone-200 space-y-3 transition-all duration-200">
-            <h3 class="font-bold text-sm text-stone-600 uppercase tracking-wide text-center">Tasques</h3>
-            <div id="fases-draggables-container" class="space-y-2 min-h-[300px] max-h-[500px] overflow-y-auto pr-1 flex flex-col justify-start">
-              <!-- Es generarà dinàmicament -->
-            </div>
-          </div>
-
-          <!-- Columnes de destí -->
-          <div class="md:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <!-- Preproducció -->
-            <div id="drop-pre" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDrop(event, 'pre')" onclick="handleZoneClick('pre')" class="border-2 border-dashed border-amber-300 bg-amber-50/50 p-4 rounded-2xl flex flex-col min-h-[300px] transition-all duration-200 animate-fade-in">
-              <h4 class="font-bold text-amber-800 text-center border-b border-amber-200 pb-2 mb-3">Preproducció</h4>
-              <div id="list-pre" class="space-y-2 flex-grow flex flex-col justify-start"></div>
-            </div>
-            <!-- Producció -->
-            <div id="drop-pro" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDrop(event, 'pro')" onclick="handleZoneClick('pro')" class="border-2 border-dashed border-orange-300 bg-orange-50/50 p-4 rounded-2xl flex flex-col min-h-[300px] transition-all duration-200 animate-fade-in">
-              <h4 class="font-bold text-orange-800 text-center border-b border-orange-200 pb-2 mb-3">Producció</h4>
-              <div id="list-pro" class="space-y-2 flex-grow flex flex-col justify-start"></div>
-            </div>
-            <!-- Postproducció -->
-            <div id="drop-post" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDrop(event, 'post')" onclick="handleZoneClick('post')" class="border-2 border-dashed border-yellow-300 bg-yellow-50/50 p-4 rounded-2xl flex flex-col min-h-[300px] transition-all duration-200 animate-fade-in">
-              <h4 class="font-bold text-yellow-800 text-center border-b border-yellow-200 pb-2 mb-3">Postproducció</h4>
-              <div id="list-post" class="space-y-2 flex-grow flex flex-col justify-start"></div>
-            </div>
-          </div>
-        </div>
-
-        <div id="fases-feedback" class="text-center text-sm font-semibold min-h-[20px] text-stone-500"></div>
-      </div>
-
-      <!-- CONTINGUT REAL DE FASES (inicialment ocult) -->
-      <div id="fases-contingut" class="hidden space-y-8">
-        <div class="bg-green-100 border-2 border-green-300 text-green-800 p-4 rounded-2xl text-center font-semibold max-w-xl mx-auto">
-          🎉 Enhorabona! Has desbloquejat completament el mapa de processos de producció.
-        </div>
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <!-- FASE 1: PREPRODUCCIÓ -->
-          <div class="bg-amber-100 text-amber-900 border-2 border-amber-300 rounded-3xl p-5 shadow-sm">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="p-2 bg-white/50 rounded-full text-amber-700">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
-              </div>
-              <div>
-                <h2 class="text-xl font-bold">Fase 1: Preproducció</h2>
-                <h3 class="text-sm font-semibold opacity-80 uppercase tracking-wide">La Preparació</h3>
-              </div>
-            </div>
-            
-            <div class="space-y-3">
-              <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
-                <button onclick="toggleTasca('pre-1')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
-                  <span class="flex items-center gap-2">
-                    <span class="text-gray-600">✍️</span> Creació de la idea i guió
-                  </span>
-                </button>
-                <div id="tasca-pre-1" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
-                  <div class="w-full h-px bg-gray-200 mb-3"></div>
-                  Es defineix la premissa, el to, el tractament literari i finalment el guió literari definitiu que guiarà tota la producció. És la llavor conceptual de l'obra.
-                </div>
-              </div>
-              <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
-                <button onclick="toggleTasca('pre-2')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
-                  <span class="flex items-center gap-2">
-                    <span class="text-gray-600">🎨</span> Storyboard i Animàtica
-                  </span>
-                </button>
-                <div id="tasca-pre-2" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
-                  <div class="w-full h-px bg-gray-200 mb-3"></div>
-                  S'il·lustra el guió pla a pla per previsualitzar la composició espacial i el muntatge. L'animàtica o "Leica Reel" afegeix el factor temps i àudio per establir el ritme narratiu abans d'animar.
-                </div>
-              </div>
-              <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
-                <button onclick="toggleTasca('pre-3')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
-                  <span class="flex items-center gap-2">
-                    <span class="text-gray-600">👥</span> Disseny de personatges i entorns
-                  </span>
-                </button>
-                <div id="tasca-pre-3" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
-                  <div class="w-full h-px bg-gray-200 mb-3"></div>
-                  Creació dels fulls de model ("Model Sheets") amb girs, expressions i postures de referència. També s'inclou la recerca d'estil artístic i la creació de la Bíblia Gràfica.
-                </div>
-              </div>
-              <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
-                <button onclick="toggleTasca('pre-4')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
-                  <span class="flex items-center gap-2">
-                    <span class="text-gray-600">🎙️</span> Enregistrament de veus (Prerecording)
-                  </span>
-                </button>
-                <div id="tasca-pre-4" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
-                  <div class="w-full h-px bg-gray-200 mb-3"></div>
-                  Enregistrament de les veus provisionals o definitives prèviament a la fase de moviment. Permet al departament d'animació sincronitzar el moviment de la boca i la interpretació facial (lip-sync).
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- FASE 2: PRODUCCIÓ -->
-          <div class="bg-orange-100 text-orange-900 border-2 border-orange-300 rounded-3xl p-5 shadow-sm">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="p-2 bg-white/50 rounded-full text-orange-700">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-              </div>
-              <div>
-                <h2 class="text-xl font-bold">Fase 2: Producció</h2>
-                <h3 class="text-sm font-semibold opacity-80 uppercase tracking-wide">L'Animació en acció</h3>
-              </div>
-            </div>
-            
-            <div class="space-y-3">
-              <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
-                <button onclick="toggleTasca('pro-1')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
-                  <span class="flex items-center gap-2">
-                    <span class="text-gray-600">📐</span> Layout d'animació
-                  </span>
-                </button>
-                <div id="tasca-pro-1" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
-                  <div class="w-full h-px bg-gray-200 mb-3"></div>
-                  Es col·loquen els personatges dins dels fons o escenaris establint els angles exactes de les lents, la composició física dels plans i la trajectòria inicial abans d'entrar a animar detalls.
-                </div>
-              </div>
-              <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
-                <button onclick="toggleTasca('pro-2')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
-                  <span class="flex items-center gap-2">
-                    <span class="text-gray-600">🏃</span> Animació (Keyframes)
-                  </span>
-                </button>
-                <div id="tasca-pro-2" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
-                  <div class="w-full h-px bg-gray-200 mb-3"></div>
-                  Els i les artistes d'animació dibuixen o defineixen digitalment les poses clau de l'acció per expressar intenció, pes, emoció i personalitat. És el nucli de la il·lusió de la vida.
-                </div>
-              </div>
-              <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
-                <button onclick="toggleTasca('pro-3')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
-                  <span class="flex items-center gap-2">
-                    <span class="text-gray-600">✏️</span> Intercalació i Clean-up
-                  </span>
-                </button>
-                <div id="tasca-pro-3" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
-                  <div class="w-full h-px bg-gray-200 mb-3"></div>
-                  Es dibuixen els fotogrames intermedis per guanyar fluïdesa en la velocitat i el timing desitjats. El procés de "Clean-up" poleix i estandarditza la línia física del dibuix d'acord amb el model.
-                </div>
-              </div>
-              <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
-                <button onclick="toggleTasca('pro-4')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
-                  <span class="flex items-center gap-2">
-                    <span class="text-gray-600">🖥️</span> Escaneig i Pintura Digital
-                  </span>
-                </button>
-                <div id="tasca-pro-4" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
-                  <div class="w-full h-px bg-gray-200 mb-3"></div>
-                  S'aplica la paleta cromàtica definida digitalment sobre cada fotograma netejat. Es dóna color al dibuix de traç i s'agrupen de forma organitzada per capes amb els seus respectius fons.
-                </div>
-              </div>
-              <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
-                <button onclick="toggleTasca('pro-5')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
-                  <span class="flex items-center gap-2">
-                    <span class="text-gray-600">📋</span> Carta de rodatge
-                  </span>
-                </button>
-                <div id="tasca-pro-5" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
-                  <div class="w-full h-px bg-gray-200 mb-3"></div>
-                  Full informatiu que coordina i lliga tots els elements: temps d'exposició, canvis d'elements bucals, efectes, canvis de cel·luloide i diàlegs fotograma a fotograma.
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- FASE 3: POSTPRODUCCIÓ -->
-          <div class="bg-yellow-100 text-yellow-900 border-2 border-yellow-300 rounded-3xl p-5 shadow-sm">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="p-2 bg-white/50 rounded-full text-yellow-700">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
-              </div>
-              <div>
-                <h2 class="text-xl font-bold">Fase 3: Postproducció</h2>
-                <h3 class="text-sm font-semibold opacity-80 uppercase tracking-wide">L'Acabat Final</h3>
-              </div>
-            </div>
-            
-            <div class="space-y-3">
-              <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
-                <button onclick="toggleTasca('post-1')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
-                  <span class="flex items-center gap-2">
-                    <span class="text-gray-600">🎚️</span> Mescla Final d'Àudio
-                  </span>
-                </button>
-                <div id="tasca-post-1" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
-                  <div class="w-full h-px bg-gray-200 mb-3"></div>
-                  S'ajusten de forma coherent i es barregen totes les pistes que componen la banda sonora: veus dels actors, efectes de sala (Foley) i l'apartat de música incidental.
-                </div>
-              </div>
-              <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
-                <button onclick="toggleTasca('post-2')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
-                  <span class="flex items-center gap-2">
-                    <span class="text-gray-600">🎵</span> Banda Sonora i Música
-                  </span>
-                </button>
-                <div id="tasca-post-2" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
-                  <div class="w-full h-px bg-gray-200 mb-3"></div>
-                  La partitura musical o composició incidental que acompanya la narració emocional s'enregistra definitivament en sincronia amb les imatges un cop s'ha realitzat el "Picture Lock".
-                </div>
-              </div>
-              <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
-                <button onclick="toggleTasca('post-3')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
-                  <span class="flex items-center gap-2">
-                    <span class="text-gray-600">🎬</span> Muntatge o Edició de vídeo
-                  </span>
-                </button>
-                <div id="tasca-post-3" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
-                  <div class="w-full h-px bg-gray-200 mb-3"></div>
-                  Consisteix a ordenar, tallar i organitzar de forma rigorosa totes les seqüències d'animació polides, assegurant el ritme narratiu de l'obra un cop tancat el disseny final.
-                </div>
-              </div>
-              <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
-                <button onclick="toggleTasca('post-4')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
-                  <span class="flex items-center gap-2">
-                    <span class="text-gray-600">🎤</span> Doblatge definitiu
-                  </span>
-                </button>
-                <div id="tasca-post-4" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
-                  <div class="w-full h-px bg-gray-200 mb-3"></div>
-                  Si el projecte es distribueix a altres mercats idiomàtics, s'enregistren els efectes de diàlegs adaptats en estudi per encaixar els matisos de veu amb els fotogrames ja animats.
-                </div>
-              </div>
-              <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
-                <button onclick="toggleTasca('post-5')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
-                  <span class="flex items-center gap-2">
-                    <span class="text-gray-600">📀</span> Màster i Còpies d'emissió
-                  </span>
-                </button>
-                <div id="tasca-post-5" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
-                  <div class="w-full h-px bg-gray-200 mb-3"></div>
-                  S'exporta el fitxer d'alta qualitat definitiu (Mastering) de color i d'àudio (conegut com a DCP) i es fan les còpies per a la seva projecció física o digital.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TAB 2: L'EQUIP (ROLS) -->
-    <section id="sec-rols" class="hidden space-y-8 animate-fade-in">
-      
-      <!-- JOC DE DESBLOQUEIG DE ROLS -->
-      <div id="rols-joc" class="bg-white rounded-3xl p-8 shadow-md border-2 border-amber-200 max-w-4xl mx-auto space-y-6">
-        <div class="text-center space-y-2">
-          <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Repte de Desbloqueig</span>
-          <h2 class="text-2xl font-bold text-gray-800">Assigna les competències</h2>
-          <p class="text-gray-600 text-sm max-w-xl mx-auto">
-            Relaciona cada definició i competència amb el departament responsable corresponent per obrir les fitxes completes de l'equip.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-          <!-- Columna d'origen de funcions -->
-          <div id="rols-source-zone" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDropRol(event, 'source')" onclick="handleZoneClickRol('source')" class="md:col-span-1 bg-stone-100 p-4 rounded-2xl border-2 border-stone-200 space-y-3 transition-all duration-200">
-            <h3 class="font-bold text-sm text-stone-600 uppercase tracking-wide text-center">Definicions</h3>
-            <div id="rols-draggables-container" class="space-y-2 min-h-[300px] flex flex-col justify-start">
-              <!-- Es generarà dinàmicament -->
-            </div>
-          </div>
-
-          <!-- Columnes de destí de Rols -->
-          <div class="md:col-span-2 space-y-3">
-            <!-- La Direcció -->
-            <div id="drop-direccio" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDropRol(event, 'direccio')" onclick="handleZoneClickRol('direccio')" class="border-2 border-dashed border-red-300 bg-red-50/30 p-4 rounded-2xl flex flex-col min-h-[90px] transition-all duration-200 justify-center">
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <span class="font-bold text-red-800">La Direcció</span>
-                <div id="list-direccio" class="flex-grow sm:ml-4 space-y-2"></div>
-              </div>
-            </div>
-            <!-- La Producció -->
-            <div id="drop-produccio" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDropRol(event, 'produccio')" onclick="handleZoneClickRol('produccio')" class="border-2 border-dashed border-blue-300 bg-blue-50/30 p-4 rounded-2xl flex flex-col min-h-[90px] transition-all duration-200 justify-center">
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <span class="font-bold text-blue-800">La Producció</span>
-                <div id="list-produccio" class="flex-grow sm:ml-4 space-y-2"></div>
-              </div>
-            </div>
-            <!-- Direcció d'Animació -->
-            <div id="drop-diranimacio" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDropRol(event, 'diranimacio')" onclick="handleZoneClickRol('diranimacio')" class="border-2 border-dashed border-green-300 bg-green-50/30 p-4 rounded-2xl flex flex-col min-h-[90px] transition-all duration-200 justify-center">
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <span class="font-bold text-green-800">Direcció d'Animació</span>
-                <div id="list-diranimacio" class="flex-grow sm:ml-4 space-y-2"></div>
-              </div>
-            </div>
-            <!-- Equip de Muntatge -->
-            <div id="drop-muntatge" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDropRol(event, 'muntatge')" onclick="handleZoneClickRol('muntatge')" class="border-2 border-dashed border-purple-300 bg-purple-50/30 p-4 rounded-2xl flex flex-col min-h-[90px] transition-all duration-200 justify-center">
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <span class="font-bold text-purple-800">Equip de Muntatge</span>
-                <div id="list-muntatge" class="flex-grow sm:ml-4 space-y-2"></div>
-              </div>
-            </div>
-            <!-- Equip de So i Mescla -->
-            <div id="drop-so" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDropRol(event, 'so')" onclick="handleZoneClickRol('so')" class="border-2 border-dashed border-orange-300 bg-orange-50/30 p-4 rounded-2xl flex flex-col min-h-[90px] transition-all duration-200 justify-center">
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <span class="font-bold text-orange-800">Equip de So i Mescla</span>
-                <div id="list-so" class="flex-grow sm:ml-4 space-y-2"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="rols-feedback" class="text-center text-sm font-semibold min-h-[20px] text-stone-500"></div>
-      </div>
-
-      <!-- CONTINGUT REAL DE ROLS (inicialment ocult) -->
-      <div id="rols-contingut" class="hidden space-y-8 animate-fade-in">
-        <div class="bg-green-100 border-2 border-green-300 text-green-800 p-4 rounded-2xl text-center font-semibold max-w-xl mx-auto">
-          🎉 Enhorabona! Has desbloquejat completament les fitxes de l'equip de producció.
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div class="bg-red-50 border-red-200 border-2 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
-            <div class="bg-white p-4 rounded-full shadow-inner mb-4 text-red-500">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
-            </div>
-            <h2 class="text-xl font-bold text-gray-800 mb-3">La Direcció</h2>
-            <p class="text-gray-600 text-sm leading-relaxed">Aporta la visió artística global del film i coordina el to expressiu entre tots els departaments de disseny i moviment.</p>
-          </div>
-          <div class="bg-blue-50 border-blue-200 border-2 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
-            <div class="bg-white p-4 rounded-full shadow-inner mb-4 text-blue-500">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            </div>
-            <h2 class="text-xl font-bold text-gray-800 mb-3">La Producció</h2>
-            <p class="text-gray-600 text-sm leading-relaxed">Supervisa els recursos empresarials del projecte, la planificació d'objectius, el pressupost global de finançament i el calendari o planificació.</p>
-          </div>
-          <div class="bg-green-50 border-green-200 border-2 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
-            <div class="bg-white p-4 rounded-full shadow-inner mb-4 text-green-500">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-            </div>
-            <h2 class="text-xl font-bold text-gray-800 mb-3">Direcció d'Animació</h2>
-            <p class="text-gray-600 text-sm leading-relaxed">Vetlla per la qualitat i la coherència del moviment físic dels personatges, la seva fluïdesa i que es mantinguin fidels als principis expressius acordats.</p>
-          </div>
-          <div class="bg-purple-50 border-purple-200 border-2 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
-            <div class="bg-white p-4 rounded-full shadow-inner mb-4 text-purple-500">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-            </div>
-            <h2 class="text-xl font-bold text-gray-800 mb-3">Equip de Muntatge</h2>
-            <p class="text-gray-600 text-sm leading-relaxed">Responsable del ritme i el temps de la narració audiovisual. Exerceix decisions tant en la preproducció (l'animàtica) com durant el tall i poliment final.</p>
-          </div>
-          <div class="bg-orange-50 border-orange-200 border-2 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
-            <div class="bg-white p-4 rounded-full shadow-inner mb-4 text-orange-500">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 18.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13z"/><path d="M12 2v3"/><path d="M12 19v3"/><path d="M2 12h3"/><path d="M19 12h3"/></svg>
-            </div>
-            <h2 class="text-xl font-bold text-gray-800 mb-3">Equip de So i Mescla</h2>
-            <p class="text-gray-600 text-sm leading-relaxed">S'encarrega d'enregistrar diàlegs i efectes sonors, coordinar les línies de doblatge i dur a terme la integració i equilibri harmònic definitiu de l'àudio.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TAB 3: QUIZ (POSA'T A PROVA) -->
-    <section id="sec-quiz" class="hidden space-y-8 animate-fade-in">
-      <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow-lg overflow-hidden border-2 border-amber-100">
-        <div class="bg-amber-100 p-4 text-center border-b-2 border-amber-200">
-          <span id="quiz-progress" class="text-amber-800 font-bold tracking-wide uppercase text-sm">
-            Carregant joc...
-          </span>
-        </div>
+  <div>
+    <!-- CAPÇALERA -->
+    <header class="bg-amber-800 text-amber-50 p-6 shadow-md rounded-b-3xl">
+      <div class="max-w-5xl mx-auto">
+        <h1 class="text-3xl md:text-4xl font-bold text-center mb-2">El Viatge de l'Animació</h1>
+        <p class="text-center text-amber-200 mb-6 text-lg">De la Idea a la Pantalla</p>
         
-        <div class="p-8">
-          <h2 id="quiz-pregunta" class="text-2xl font-bold text-gray-800 mb-8 text-center">Carregant pregunta de nivell universitari...</h2>
-          
-          <div id="quiz-opcions" class="space-y-3">
-            <!-- Les opcions es renderitzaran dinàmicament per JS -->
-          </div>
+        <div class="flex justify-center flex-wrap gap-2 md:gap-4">
+          <button id="btn-glossari" onclick="canviarTab('glossari')" class="px-6 py-2 rounded-full font-semibold transition-all duration-300 flex items-center gap-1">
+            Glossari 🔓
+          </button>
+          <button id="btn-fases" onclick="canviarTab('fases')" class="px-6 py-2 rounded-full font-semibold transition-all duration-300 flex items-center gap-1">
+            El Procés 🔓
+          </button>
+          <button id="btn-rols" onclick="canviarTab('rols')" class="px-6 py-2 rounded-full font-semibold transition-all duration-300 flex items-center gap-1">
+            L'Equip 🔓
+          </button>
+          <button id="btn-quiz" onclick="canviarTab('quiz')" disabled class="px-6 py-2 rounded-full font-semibold transition-all duration-300 flex items-center gap-1">
+            Posa't a Prova! 🔒
+          </button>
         </div>
       </div>
-    </section>
+    </header>
 
-    <!-- PANTALLA RESULTAT DEL QUIZ -->
-    <section id="sec-resultats" class="hidden max-w-xl mx-auto bg-white rounded-3xl shadow-lg p-8 text-center animate-fade-in border-4 border-amber-200">
-      <div class="text-yellow-500 mb-6 flex justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H4v2h16v-2h-5c-.55 0-1-.45-1-1v-2.34"/><path d="M12 2a5 5 0 0 1 5 5v5a5 5 0 0 1-5 5 5 5 0 0 1-5-5V7a5 5 0 0 1 5-5z"/></svg>
-      </div>
-      <h2 class="text-3xl font-bold text-gray-800 mb-2">Puntuació Final</h2>
-      <p class="text-xl text-gray-600 mb-6">Has encertat <span id="res-encertades" class="font-bold text-amber-600">0</span> de <span class="font-bold">10</span> preguntes.</p>
-      
-      <p id="res-comentari" class="text-green-600 font-medium mb-8">Reflexió de l'exercici...</p>
+    <!-- CONTINGUT PRINCIPAL -->
+    <main class="max-w-6xl mx-auto px-4 pt-10">
 
-      <button onclick="iniciarJocAleatori()" class="flex items-center justify-center gap-2 w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-md">
-        Jugar amb 10 preguntes noves
-      </button>
-    </section>
+      <!-- TAB 0: GLOSSARI -->
+      <section id="sec-glossari" class="space-y-8 animate-fade-in">
+        
+        <!-- JOC DE DESBLOQUEIG DE GLOSSARI -->
+        <div id="glossari-joc" class="bg-white rounded-3xl p-8 shadow-md border-2 border-amber-200 max-w-5xl mx-auto space-y-6">
+          <div class="text-center space-y-2">
+            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Mòdul interactiu</span>
+            <h2 class="text-2xl font-bold text-gray-800">Emparella els Conceptes Clau</h2>
+            <p class="text-gray-600 text-sm max-w-xl mx-auto">
+              Arrossega cada concepte fins a la seva definició corresponent. També pots fer clic sobre un concepte i després sobre la definició per col·locar-lo.
+            </p>
+          </div>
 
-  </main>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-6 pt-4">
+            <!-- Columna d'origen de termes -->
+            <div id="glossari-source-zone" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDropGlossari(event, 'source')" onclick="handleZoneClickGlossari('source')" class="md:col-span-1 bg-stone-100 p-4 rounded-2xl border-2 border-stone-200 space-y-3 transition-all duration-200">
+              <h3 class="font-bold text-sm text-stone-600 uppercase tracking-wide text-center">Conceptes</h3>
+              <div id="glossari-draggables-container" class="space-y-2 min-h-[300px] max-h-[600px] overflow-y-auto pr-1 flex flex-col justify-start">
+                <!-- Es generarà dinàmicament -->
+              </div>
+            </div>
+
+            <!-- Columnes de destí de definicions -->
+            <div class="md:col-span-3">
+              <div id="glossari-definitions-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                <!-- Es generarà dinàmicament per JS -->
+              </div>
+            </div>
+          </div>
+
+          <div id="glossari-feedback" class="text-center text-sm font-semibold min-h-[20px] text-stone-500"></div>
+        </div>
+
+        <!-- CONTINGUT REAL DEL GLOSSARI -->
+        <div id="glossari-contingut" class="hidden space-y-8 animate-fade-in">
+          <div class="bg-green-100 border-2 border-green-300 text-green-800 p-4 rounded-2xl text-center font-semibold max-w-xl mx-auto">
+            🎉 Enhorabona! Has resolt el mòdul del Glossari amb èxit.
+          </div>
+          <div class="bg-white rounded-3xl p-8 shadow-md max-w-4xl mx-auto border border-stone-200">
+            <h2 class="text-2xl font-bold text-amber-800 mb-6 border-b border-stone-200 pb-3">Glossari Tècnic d'Animació</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="glossari-list-full">
+              <!-- Es generarà dinàmicament -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 1: EL PROCÉS (FASES) -->
+      <section id="sec-fases" class="hidden space-y-8 animate-fade-in">
+        
+        <!-- JOC DE DESBLOQUEIG DE FASES -->
+        <div id="fases-joc" class="bg-white rounded-3xl p-8 shadow-md border-2 border-amber-200 max-w-4xl mx-auto space-y-6">
+          <div class="text-center space-y-2">
+            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Mòdul interactiu</span>
+            <h2 class="text-2xl font-bold text-gray-800">Ordena el flux de treball</h2>
+            <p class="text-gray-600 text-sm max-w-xl mx-auto">
+              Arrossega cada tasca fins a la seva fase de producció corresponent. També pots fer clic sobre una tasca i després sobre el seu destí per col·locar-la.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-6 pt-4">
+            <!-- Columna d'origen de tasques -->
+            <div id="fases-source-zone" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDrop(event, 'source')" onclick="handleZoneClick('source')" class="md:col-span-1 bg-stone-100 p-4 rounded-2xl border-2 border-stone-200 space-y-3 transition-all duration-200">
+              <h3 class="font-bold text-sm text-stone-600 uppercase tracking-wide text-center">Tasques</h3>
+              <div id="fases-draggables-container" class="space-y-2 min-h-[300px] max-h-[500px] overflow-y-auto pr-1 flex flex-col justify-start">
+                <!-- Es generarà dinàmicament -->
+              </div>
+            </div>
+
+            <!-- Columnes de destí -->
+            <div class="md:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <!-- Preproducció -->
+              <div id="drop-pre" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDrop(event, 'pre')" onclick="handleZoneClick('pre')" class="border-2 border-dashed border-amber-300 bg-amber-50/50 p-4 rounded-2xl flex flex-col min-h-[300px] transition-all duration-200 animate-fade-in">
+                <h4 class="font-bold text-amber-800 text-center border-b border-amber-200 pb-2 mb-3">Preproducció</h4>
+                <div id="list-pre" class="space-y-2 flex-grow flex flex-col justify-start"></div>
+              </div>
+              <!-- Producció -->
+              <div id="drop-pro" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDrop(event, 'pro')" onclick="handleZoneClick('pro')" class="border-2 border-dashed border-orange-300 bg-orange-50/50 p-4 rounded-2xl flex flex-col min-h-[300px] transition-all duration-200 animate-fade-in">
+                <h4 class="font-bold text-orange-800 text-center border-b border-orange-200 pb-2 mb-3">Producció</h4>
+                <div id="list-pro" class="space-y-2 flex-grow flex flex-col justify-start"></div>
+              </div>
+              <!-- Postproducció -->
+              <div id="drop-post" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDrop(event, 'post')" onclick="handleZoneClick('post')" class="border-2 border-dashed border-yellow-300 bg-yellow-50/50 p-4 rounded-2xl flex flex-col min-h-[300px] transition-all duration-200 animate-fade-in">
+                <h4 class="font-bold text-yellow-800 text-center border-b border-yellow-200 pb-2 mb-3">Postproducció</h4>
+                <div id="list-post" class="space-y-2 flex-grow flex flex-col justify-start"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="fases-feedback" class="text-center text-sm font-semibold min-h-[20px] text-stone-500"></div>
+        </div>
+
+        <!-- CONTINGUT REAL DE FASES (inicialment ocult) -->
+        <div id="fases-contingut" class="hidden space-y-8">
+          <div class="bg-green-100 border-2 border-green-300 text-green-800 p-4 rounded-2xl text-center font-semibold max-w-xl mx-auto">
+            🎉 Enhorabona! Has resolt el mòdul del Procés amb èxit.
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- FASE 1: PREPRODUCCIÓ -->
+            <div class="bg-amber-100 text-amber-900 border-2 border-amber-300 rounded-3xl p-5 shadow-sm">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="p-2 bg-white/50 rounded-full text-amber-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+                </div>
+                <div>
+                  <h2 class="text-xl font-bold">Fase 1: Preproducció</h2>
+                  <h3 class="text-sm font-semibold opacity-80 uppercase tracking-wide">La Preparació</h3>
+                </div>
+              </div>
+              
+              <div class="space-y-3">
+                <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
+                  <button onclick="toggleTasca('pre-1')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
+                    <span class="flex items-center gap-2">
+                      <span class="text-gray-600">✍️</span> Creació de la idea i guió
+                    </span>
+                  </button>
+                  <div id="tasca-pre-1" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
+                    <div class="w-full h-px bg-gray-200 mb-3"></div>
+                    Es defineix la premissa, el to, el tractament literari i finalment el guió literari definitiu que guiarà tota la producció. És la llavor conceptual de l'obra.
+                  </div>
+                </div>
+                <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
+                  <button onclick="toggleTasca('pre-2')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
+                    <span class="flex items-center gap-2">
+                      <span class="text-gray-600">🎨</span> Storyboard i Animàtica
+                    </span>
+                  </button>
+                  <div id="tasca-pre-2" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
+                    <div class="w-full h-px bg-gray-200 mb-3"></div>
+                    S'il·lustra el guió pla a pla per previsualitzar la composició espacial i el muntatge. L'animàtica o "Leica Reel" afegeix el factor temps i àudio per establir el ritme narratiu abans d'animar.
+                  </div>
+                </div>
+                <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
+                  <button onclick="toggleTasca('pre-3')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
+                    <span class="flex items-center gap-2">
+                      <span class="text-gray-600">👥</span> Disseny de personatges i entorns
+                    </span>
+                  </button>
+                  <div id="tasca-pre-3" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
+                    <div class="w-full h-px bg-gray-200 mb-3"></div>
+                    Creació dels fulls de model ("Model Sheets") amb girs, expressions i postures de referència. També s'inclou la recerca d'estil artístic i la creació de la Bíblia Gràfica.
+                  </div>
+                </div>
+                <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
+                  <button onclick="toggleTasca('pre-4')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
+                    <span class="flex items-center gap-2">
+                      <span class="text-gray-600">🎙️</span> Enregistrament de veus (Prerecording)
+                    </span>
+                  </button>
+                  <div id="tasca-pre-4" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
+                    <div class="w-full h-px bg-gray-200 mb-3"></div>
+                    Enregistrament de les veus provisionals o definitives prèviament a la fase de moviment. Permet al departament d'animació sincronitzar el moviment de la boca i la interpretació facial (lip-sync).
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- FASE 2: PRODUCCIÓ -->
+            <div class="bg-orange-100 text-orange-900 border-2 border-orange-300 rounded-3xl p-5 shadow-sm">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="p-2 bg-white/50 rounded-full text-orange-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                </div>
+                <div>
+                  <h2 class="text-xl font-bold">Fase 2: Producció</h2>
+                  <h3 class="text-sm font-semibold opacity-80 uppercase tracking-wide">L'Animació en acció</h3>
+                </div>
+              </div>
+              
+              <div class="space-y-3">
+                <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
+                  <button onclick="toggleTasca('pro-1')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
+                    <span class="flex items-center gap-2">
+                      <span class="text-gray-600">📐</span> Layout d'animació
+                    </span>
+                  </button>
+                  <div id="tasca-pro-1" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
+                    <div class="w-full h-px bg-gray-200 mb-3"></div>
+                    Es col·loquen els personatges dins dels fons o escenaris establint els angles exactes de les lents, la composició física dels plans i la trajectòria inicial abans d'entrar a animar detalls.
+                  </div>
+                </div>
+                <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
+                  <button onclick="toggleTasca('pro-2')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
+                    <span class="flex items-center gap-2">
+                      <span class="text-gray-600">🏃</span> Animació (Keyframes)
+                    </span>
+                  </button>
+                  <div id="tasca-pro-2" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
+                    <div class="w-full h-px bg-gray-200 mb-3"></div>
+                    Els i les artistes d'animació dibuixen o defineixen digitalment les poses clau de l'acció per expressar intenció, pes, emoció i personalitat. És el nucli de la il·lusió de la vida.
+                  </div>
+                </div>
+                <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
+                  <button onclick="toggleTasca('pro-3')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
+                    <span class="flex items-center gap-2">
+                      <span class="text-gray-600">✏️</span> Intercalació i Clean-up
+                    </span>
+                  </button>
+                  <div id="tasca-pro-3" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
+                    <div class="w-full h-px bg-gray-200 mb-3"></div>
+                    Es dibuixen els fotogrames intermedis per guanyar fluïdesa en la velocitat i el timing desitjats. El procés de "Clean-up" poleix i estandarditza la línia física del dibuix d'acord amb el model.
+                  </div>
+                </div>
+                <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
+                  <button onclick="toggleTasca('pro-4')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
+                    <span class="flex items-center gap-2">
+                      <span class="text-gray-600">🖥️</span> Escaneig i Pintura Digital
+                    </span>
+                  </button>
+                  <div id="tasca-pro-4" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
+                    <div class="w-full h-px bg-gray-200 mb-3"></div>
+                    S'aplica la paleta cromàtica definida digitalment sobre cada fotograma netejat. Es dóna color al dibuix de traç i s'agrupen de forma organitzada per capes amb els seus respectius fons.
+                  </div>
+                </div>
+                <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
+                  <button onclick="toggleTasca('pro-5')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
+                    <span class="flex items-center gap-2">
+                      <span class="text-gray-600">📋</span> Carta de rodatge
+                    </span>
+                  </button>
+                  <div id="tasca-pro-5" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
+                    <div class="w-full h-px bg-gray-200 mb-3"></div>
+                    Full informatiu que coordina i lliga tots els elements: temps d'exposició, canvis d'elements bucals, efectes, canvis de cel·luloide i diàlegs fotograma a fotograma.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- FASE 3: POSTPRODUCCIÓ -->
+            <div class="bg-yellow-100 text-yellow-900 border-2 border-yellow-300 rounded-3xl p-5 shadow-sm">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="p-2 bg-white/50 rounded-full text-yellow-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
+                </div>
+                <div>
+                  <h2 class="text-xl font-bold">Fase 3: Postproducció</h2>
+                  <h3 class="text-sm font-semibold opacity-80 uppercase tracking-wide">L'Acabat Final</h3>
+                </div>
+              </div>
+              
+              <div class="space-y-3">
+                <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
+                  <button onclick="toggleTasca('post-1')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
+                    <span class="flex items-center gap-2">
+                      <span class="text-gray-600">🎚️</span> Mescla Final d'Àudio
+                    </span>
+                  </button>
+                  <div id="tasca-post-1" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
+                    <div class="w-full h-px bg-gray-200 mb-3"></div>
+                    S'ajusten de forma coherent i es barregen totes les pistes que componen la banda sonora: veus dels actors, efectes de sala (Foley) i l'apartat de música incidental.
+                  </div>
+                </div>
+                <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
+                  <button onclick="toggleTasca('post-2')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
+                    <span class="flex items-center gap-2">
+                      <span class="text-gray-600">🎵</span> Banda Sonora i Música
+                    </span>
+                  </button>
+                  <div id="tasca-post-2" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
+                    <div class="w-full h-px bg-gray-200 mb-3"></div>
+                    La partitura musical o composició incidental que acompanya la narració emocional s'enregistra definitivament en sincronia amb les imatges un cop s'ha realitzat el "Picture Lock".
+                  </div>
+                </div>
+                <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
+                  <button onclick="toggleTasca('post-3')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
+                    <span class="flex items-center gap-2">
+                      <span class="text-gray-600">🎬</span> Muntatge o Edició de vídeo
+                    </span>
+                  </button>
+                  <div id="tasca-post-3" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
+                    <div class="w-full h-px bg-gray-200 mb-3"></div>
+                    Consisteix a ordenar, tallar i organitzar de forma rigorosa totes les seqüències d'animació polides, assegurant el ritme narratiu de l'obra un cop tancat el disseny final.
+                  </div>
+                </div>
+                <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
+                  <button onclick="toggleTasca('post-4')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
+                    <span class="flex items-center gap-2">
+                      <span class="text-gray-600">🎤</span> Doblatge definitiu
+                    </span>
+                  </button>
+                  <div id="tasca-post-4" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
+                    <div class="w-full h-px bg-gray-200 mb-3"></div>
+                    Si el projecte es distribueix a altres mercats idiomàtics, s'enregistren els efectes de diàlegs adaptats en estudi per encaixar els matisos de veu amb els fotogrames ja animats.
+                  </div>
+                </div>
+                <div class="bg-white/70 rounded-xl overflow-hidden shadow-sm hover:shadow transition-all">
+                  <button onclick="toggleTasca('post-5')" class="w-full text-left p-3 flex items-center justify-between font-medium hover:bg-white/90 transition-colors">
+                    <span class="flex items-center gap-2">
+                      <span class="text-gray-600">📀</span> Màster i Còpies d'emissió
+                    </span>
+                  </button>
+                  <div id="tasca-post-5" class="hidden p-4 pt-0 text-sm text-gray-700 bg-white/90">
+                    <div class="w-full h-px bg-gray-200 mb-3"></div>
+                    S'exporta el fitxer d'alta qualitat definitiu (Mastering) de color i d'àudio (conegut com a DCP) i es fan les còpies per a la seva projecció física o digital.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: L'EQUIP (ROLS) -->
+      <section id="sec-rols" class="hidden space-y-8 animate-fade-in">
+        
+        <!-- JOC DE DESBLOQUEIG DE ROLS -->
+        <div id="rols-joc" class="bg-white rounded-3xl p-8 shadow-md border-2 border-amber-200 max-w-4xl mx-auto space-y-6">
+          <div class="text-center space-y-2">
+            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Repte 3: L'Equip</span>
+            <h2 class="text-2xl font-bold text-gray-800">Assigna les competències</h2>
+            <p class="text-gray-600 text-sm max-w-xl mx-auto">
+              Relaciona cada definició i competència amb el departament responsable corresponent per obrir les fitxes completes de l'equip.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+            <!-- Columna d'origen de funcions -->
+            <div id="rols-source-zone" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDropRol(event, 'source')" onclick="handleZoneClickRol('source')" class="md:col-span-1 bg-stone-100 p-4 rounded-2xl border-2 border-stone-200 space-y-3 transition-all duration-200">
+              <h3 class="font-bold text-sm text-stone-600 uppercase tracking-wide text-center">Definicions</h3>
+              <div id="rols-draggables-container" class="space-y-2 min-h-[300px] flex flex-col justify-start">
+                <!-- Es generarà dinàmicament -->
+              </div>
+            </div>
+
+            <!-- Columnes de destí de Rols -->
+            <div class="md:col-span-2 space-y-3">
+              <!-- La Direcció -->
+              <div id="drop-direccio" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDropRol(event, 'direccio')" onclick="handleZoneClickRol('direccio')" class="border-2 border-dashed border-red-300 bg-red-50/30 p-4 rounded-2xl flex flex-col min-h-[90px] transition-all duration-200 justify-center animate-fade-in">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <span class="font-bold text-red-800">La Direcció</span>
+                  <div id="list-direccio" class="flex-grow sm:ml-4 space-y-2"></div>
+                </div>
+              </div>
+              <!-- La Producció -->
+              <div id="drop-produccio" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDropRol(event, 'produccio')" onclick="handleZoneClickRol('produccio')" class="border-2 border-dashed border-blue-300 bg-blue-50/30 p-4 rounded-2xl flex flex-col min-h-[90px] transition-all duration-200 justify-center animate-fade-in">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <span class="font-bold text-blue-800">La Producció</span>
+                  <div id="list-produccio" class="flex-grow sm:ml-4 space-y-2"></div>
+                </div>
+              </div>
+              <!-- Direcció d'Animació -->
+              <div id="drop-diranimacio" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDropRol(event, 'diranimacio')" onclick="handleZoneClickRol('diranimacio')" class="border-2 border-dashed border-green-300 bg-green-50/30 p-4 rounded-2xl flex flex-col min-h-[90px] transition-all duration-200 justify-center animate-fade-in">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <span class="font-bold text-green-800">Direcció d'Animació</span>
+                  <div id="list-diranimacio" class="flex-grow sm:ml-4 space-y-2"></div>
+                </div>
+              </div>
+              <!-- Equip de Muntatge -->
+              <div id="drop-muntatge" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDropRol(event, 'muntatge')" onclick="handleZoneClickRol('muntatge')" class="border-2 border-dashed border-purple-300 bg-purple-50/30 p-4 rounded-2xl flex flex-col min-h-[90px] transition-all duration-200 justify-center animate-fade-in">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <span class="font-bold text-purple-800">Equip de Muntatge</span>
+                  <div id="list-muntatge" class="flex-grow sm:ml-4 space-y-2"></div>
+                </div>
+              </div>
+              <!-- Equip de So i Mescla -->
+              <div id="drop-so" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="handleDropRol(event, 'so')" onclick="handleZoneClickRol('so')" class="border-2 border-dashed border-orange-300 bg-orange-50/30 p-4 rounded-2xl flex flex-col min-h-[90px] transition-all duration-200 justify-center animate-fade-in">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <span class="font-bold text-orange-800">Equip de So i Mescla</span>
+                  <div id="list-so" class="flex-grow sm:ml-4 space-y-2"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="rols-feedback" class="text-center text-sm font-semibold min-h-[20px] text-stone-500"></div>
+        </div>
+
+        <!-- CONTINGUT REAL DE ROLS (inicialment ocult) -->
+        <div id="rols-contingut" class="hidden space-y-8 animate-fade-in">
+          <div class="bg-green-100 border-2 border-green-300 text-green-800 p-4 rounded-2xl text-center font-semibold max-w-xl mx-auto">
+            🎉 Enhorabona! Has desbloquejat completament les fitxes de l'equip de producció.
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-red-50 border-red-200 border-2 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
+              <div class="bg-white p-4 rounded-full shadow-inner mb-4 text-red-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+              </div>
+              <h2 class="text-xl font-bold text-gray-800 mb-3">La Direcció</h2>
+              <p class="text-gray-600 text-sm leading-relaxed">Aporta la visió artística global del film i coordina el to expressiu entre tots els departaments de disseny i moviment.</p>
+            </div>
+            <div class="bg-blue-50 border-blue-200 border-2 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
+              <div class="bg-white p-4 rounded-full shadow-inner mb-4 text-blue-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              </div>
+              <h2 class="text-xl font-bold text-gray-800 mb-3">La Producció</h2>
+              <p class="text-gray-600 text-sm leading-relaxed">Supervisa els recursos empresarials del projecte, la planificació d'objectius, el pressupost global de finançament i el calendari o planificació.</p>
+            </div>
+            <div class="bg-green-50 border-green-200 border-2 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
+              <div class="bg-white p-4 rounded-full shadow-inner mb-4 text-green-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              </div>
+              <h2 class="text-xl font-bold text-gray-800 mb-3">Direcció d'Animació</h2>
+              <p class="text-gray-600 text-sm leading-relaxed">Vetlla per la qualitat i la coherència del moviment físic dels personatges, la seva fluïdesa i que es mantinguin fidels als principis expressius acordats.</p>
+            </div>
+            <div class="bg-purple-50 border-purple-200 border-2 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
+              <div class="bg-white p-4 rounded-full shadow-inner mb-4 text-purple-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+              </div>
+              <h2 class="text-xl font-bold text-gray-800 mb-3">Equip de Muntatge</h2>
+              <p class="text-gray-600 text-sm leading-relaxed">Responsable del ritme i el temps de la narració audiovisual. Exerceix decisions tant en la preproducció (l'animàtica) com durant el tall i poliment final.</p>
+            </div>
+            <div class="bg-orange-50 border-orange-200 border-2 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
+              <div class="bg-white p-4 rounded-full shadow-inner mb-4 text-orange-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 18.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13z"/><path d="M12 2v3"/><path d="M12 19v3"/><path d="M2 12h3"/><path d="M19 12h3"/></svg>
+              </div>
+              <h2 class="text-xl font-bold text-gray-800 mb-3">Equip de So i Mescla</h2>
+              <p class="text-gray-600 text-sm leading-relaxed">S'encarrega d'enregistrar diàlegs i efectes sonors, coordinar les línies de doblatge i dur a terme la integració i equilibri harmònic definitiu de l'àudio.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: QUIZ (POSA'T A PROVA) -->
+      <section id="sec-quiz" class="hidden space-y-8 animate-fade-in">
+        <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow-lg overflow-hidden border-2 border-amber-100">
+          <div class="bg-amber-100 p-4 text-center border-b-2 border-amber-200">
+            <span id="quiz-progress" class="text-amber-800 font-bold tracking-wide uppercase text-sm">
+              Carregant joc...
+            </span>
+          </div>
+          
+          <div class="p-8">
+            <h2 id="quiz-pregunta" class="text-2xl font-bold text-gray-800 mb-8 text-center">Carregant pregunta de nivell universitari...</h2>
+            
+            <div id="quiz-opcions" class="space-y-3">
+              <!-- Les opcions es renderitzaran dinàmicament per JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANTALLA RESULTAT DEL QUIZ -->
+      <section id="sec-resultats" class="hidden max-w-xl mx-auto bg-white rounded-3xl shadow-lg p-8 text-center animate-fade-in border-4 border-amber-200">
+        <div class="text-yellow-500 mb-6 flex justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H4v2h16v-2h-5c-.55 0-1-.45-1-1v-2.34"/><path d="M12 2a5 5 0 0 1 5 5v5a5 5 0 0 1-5 5 5 5 0 0 1-5-5V7a5 5 0 0 1 5-5z"/></svg>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-800 mb-2">Puntuació Final</h2>
+        <p class="text-xl text-gray-600 mb-6">Has encertat <span id="res-encertades" class="font-bold text-amber-600">0</span> de <span class="font-bold">10</span> preguntes.</p>
+        
+        <p id="res-comentari" class="text-green-600 font-medium mb-8">Reflexió de l'exercici...</p>
+
+        <button onclick="iniciarJocAleatori()" class="flex items-center justify-center gap-2 w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-md">
+          Jugar amb 10 preguntes noves
+        </button>
+      </section>
+
+    </main>
+  </div>
 
   <!-- PEU DE PÀGINA -->
   <footer class="mt-12 text-center text-stone-500 text-sm border-t border-stone-200 pt-6">
@@ -482,11 +534,12 @@
 
   <script>
     // --- ESTATS GLOBALS DE DESBLOQUEIG ---
+    let glossariCompletat = false;
     let fasesDesbloquejades = false;
     let rolsDesbloquejats = false;
 
     // --- ESTATS GLOBALS DE NAVEGACIÓ ---
-    let tabActiva = 'fases';
+    let tabActiva = 'glossari';
     let tascaObertaId = null;
 
     // --- DADES DELS REPTES D'ARROSSEGAR (BANC DE 14 TASQUES COMPLET) ---
@@ -508,11 +561,30 @@
     ];
 
     const repteRolsDefinicions = [
-      { id: "dr1", text: "Coordina la línia artística general i l'estil expresiu del film.", cat: "direccio" },
+      { id: "dr1", text: "Coordina la línia artística general i l'estil expressiu del film.", cat: "direccio" },
       { id: "dr2", text: "Gestiona els calendaris de treball, pressupostos i terminis del pipeline.", cat: "produccio" },
       { id: "dr3", text: "Supervisa la fluïdesa i coherència del moviment dels personatges.", cat: "diranimacio" },
       { id: "dr4", text: "Munta l'animàtica provisional i tanca l'edició audiovisual final.", cat: "muntatge" },
       { id: "dr5", text: "S'encarrega dels efectes de sala foley i del balanç global del volum.", cat: "so" }
+    ];
+
+    // --- DADES DEL GLOSSARI INTERACTIU (15 TERMES I DEFINICIONS) ---
+    const repteGlossari = [
+      { id: "g1", text: "Picture Lock", def: "El moment en cui el muntatge visual de la pel·lícula queda completament tancat i bloquejat." },
+      { id: "g2", text: "Clean-Up", def: "El procés de polir i netejar les línies de l'esbós animat per obtenir l'acabat final net del traç." },
+      { id: "g3", text: "Keyframe", def: "Fotograma clau que defineix els punts extrems d'un moviment principal." },
+      { id: "g4", text: "Inbetween", def: "Fotograma intermedi que es dibuixa entre dues poses clau per fer le moviment fluid." },
+      { id: "g5", text: "Leica Reel", def: "Sinònim d'animàtica; muntatge provisional de l'storyboard sincronitzat amb so de referència." },
+      { id: "g6", text: "Model Sheet", def: "Guia visual estandarditzada que recull les proporcions, girs i expressions de cada personatge." },
+      { id: "g7", text: "Lip-sync", def: "Sincronització precisa entre els moviments bucals de la figura i la pista de veu enregistrada." },
+      { id: "g8", text: "Foley", def: "Efectes de so físics realitzats a sala que reforcen el realisme i els detalls de l'ambient (passos, roba)." },
+      { id: "g9", text: "Layout", def: "Planificació de l'escena on s'estableixen lents de càmera, composició física i posició d'elements." },
+      { id: "g10", text: "Color Script", def: "Planificació seqüencial de la llum i la paleta cromàtica al llarg de l'obra per marcar el to." },
+      { id: "g11", text: "Storyboard", def: "El guió il·lustrat format per vinyetes successives que detalla el transcurs visual pla a pla." },
+      { id: "g12", text: "X-Sheet", def: "La carta de rodatge; un full de ruta detallat que coordina diàlegs i dibuixos per fotograma." },
+      { id: "g13", text: "Temp Track", def: "Pista de música provisional utilitzada durant l'edició per marcar el to i el ritme desitjats." },
+      { id: "g14", text: "Rigging", def: "Construcció de l'esquelet i controls digitals d'un personatge o objecte per poder ser animat en 3D." },
+      { id: "g15", text: "Compositing", def: "Etapa final on s'integren de manera coherent els fons, personatges, efectes visuals i il·luminació." }
     ];
 
     // --- BANC D'EXPLICACIONS DE CADA TASCA SENSE INDICAR FASES ---
@@ -523,7 +595,7 @@
       "tf4": "Es graven les veus abans de començar a animar perquè l'equip pugui sincronitzar el moviment de la boca amb els sons.",
       "tf5": "Es col·loquen els personatges dins dels fons de l'escena, triant lents de càmera, composició física i trajectòries.",
       "tf6": "Es dibuixen o defineixen digitalment les poses clau de l'acció per transmetre el pes, la personalitat i la intenció.",
-      "tf7": "Es dibuixen els fotogrames intermedis per aconseguir fluïdesa i es poleix el traç final seguint els fulls de model.",
+      "tf7": "Es dibuixen els fotogrames intermedis per aconseguir fluïdesa i es poleix el traç final seguint els guies d'estil.",
       "tf8": "S'aplica la paleta cromàtica definida a cada fotograma netejat, organitzant-los de manera neta en capes.",
       "tf9": "Document que registra frame a frame la correspondència entre diàleg, ordres de càmera, exposició i capes de dibuix.",
       "tf10": "S'ajusten i equilibren de forma unificada tots els elements d'àudio: diàlegs, efectes de sala foley i música.",
@@ -533,27 +605,32 @@
       "tf14": "Exportació de l'arxiu definitiu de màxima qualitat de so i imatge per a cinemes (DCP), plataformes o TV."
     };
 
-    // Variables de control d'estat de les posicions dels objectes
+    // Variables de control de l'estat de les posicions dels objectes
+    let termesGlossariRestants = [];
+    let glossariState = {};
+    let definicionsOrdre = [];
+    let selectedGlossariItemId = null;
+
     let tasquesRestants = [];
     let fasesState = { pre: [], pro: [], post: [] };
 
     let rolsRestants = [];
     let rolsState = { direccio: [], produccio: [], diranimacio: [], muntatge: [], so: [] };
 
-    // Variables per a interacció per clics (Touch fallback)
+    // Variables de control de la interacció per clics (Touch fallback)
     let selectedFaseItemId = null;
     let selectedRolItemId = null;
 
-    // --- BANC DE 100 PREGUNTES DE NIVELL UNIVERSITARI (OPCIONS EQUIVALENTS) ---
+    // --- BANC DE 100 PREGUNTES DE NIVELL UNIVERSITARI ---
     const TotesLesPreguntes = [
       { pregunta: "Què inclou el desenvolupament de la Bíblia gràfica i literària d'un projecte?", opcions: ["La planificació de la campanya de publicitat i el màrqueting del projecte.", "El format, les històries, les figures, els objectes i la línia bàsica.", "El conjunt de despeses de personal i la cerca de finançament de l'estudi."], correcta: 1 },
       { pregunta: "Quina és la funció principal d'una animàtica o 'Leica reel'?", opcions: ["Definir els tons de color definitius de cadascuna de les escenes de l'obra.", "Establir de manera provisional el ritme, el temps i els plans de la història.", "Processar i renderitzar les imatges finals en alta definició per la còpia."], correcta: 1 },
-      { pregunta: "Quin document s'utilitza abans de l'animació per sincronitzar les accions i els diàlegs fotograma a fotograma?", opcions: ["La carta de rodatge (X-sheet)", "El guió de color (Color script)", "El guió il·lustrat (Storyboard)"], correcta: 0 },
+      { pregunta: "Quin document s'utilitza abans de l'animació per sincronitzar les accions i os diàlegs fotograma a fotograma?", opcions: ["La carta de rodatge (X-sheet)", "El guió de color (Color script)", "El guió il·lustrat (Storyboard)"], correcta: 0 },
       { pregunta: "Per què s'enregistren veus de referència (prerecording) en la fase de preproducció?", opcions: ["Fer la promoció inicial en els canals.", "Estalviar els costos del doblatge final.", "Donar la referència al sincronisme labial."], correcta: 2 },
       { pregunta: "En l'etapa de disseny, què és un 'Model Sheet' (full de model)?", opcions: ["Un contracte de cessió d'exclusivitat.", "Un pressupost estimat de l'obra gràfica.", "Una guia de proporció dels personatges."], correcta: 2 },
       { pregunta: "Segons l'estructura de producció, el 'Layout' pertany a...", opcions: ["L'etapa de Producció, on es fixen enquadraments i posicions.", "L'etapa de Postproducció, on es fan referències al color.", "L'etapa de Preproducció, on es redacta la premissa literària."], correcta: 0 },
       { pregunta: "Quin és el rol principal de l'equip de Muntatge durant la preproducció?", opcions: ["Dibuixar els fons definitius d'escena.", "Muntar l'animàtica per trobar el ritme.", "Gestionar els recursos de personal d'art."], correcta: 1 },
-      { pregunta: "En cas que el projecte es distribueixi internacionalment, què cal preveure with l'àudio?", opcions: ["Enregistrar els diàlegs directament en l'idioma final.", "Separar els diàlegs de la música i efectes de so foley.", "Eliminar per complet qualsevol efecte de veu de fons."], correcta: 1 },
+      { pregunta: "En cas que el projecte es distribueixi internacionalment, què cal preveure amb l'àudio?", opcions: ["Enregistrar els diàlegs directament en l'idioma final.", "Separar els diàlegs de la música i efectes de so foley.", "Eliminar per complet qualsevol efecte de veu de fons."], correcta: 1 },
       { pregunta: "Quin d'aquests programes és un estàndard clàssic per a les primeres gravacions 'en brut' i edició de pistes de so de codi obert?", opcions: ["Autodesk Maya", "Audacity", "Pixologic ZBrush"], correcta: 1 },
       { pregunta: "Com es defineix col·loquialment el procés de 'Clean-up'?", opcions: ["Netejar la línia de l'esbós per fer el traç definitiu.", "Esborrar els arxius de treball antics dels servidors.", "Eliminar seqüències senceres de la línia de temps real."], correcta: 0 },
       { pregunta: "Què és la música 'incidental' en una producció audiovisual?", opcions: ["La música generada per interferències de l'equip sonor.", "La música que dóna suport dramàtic i emoció a la imatge.", "La música que només sona durant els crèdits finals de TV."], correcta: 1 },
@@ -564,9 +641,9 @@
       { pregunta: "Como es compensa la manca de pressupost en produccions d'animació europees davant de les grans productores?", opcions: ["Cal suplir-lo amb llibertat creativa i propostes originals.", "Cal prescindir completament de tots els efectes de so foley.", "Cal limitar les obres a curts experimentals de pocs minuts."], correcta: 0 },
       { pregunta: "En quina pel·lícula clàssica de Disney la imatge es va sincronitzar directament seguint el ritme previ de l'orquestra?", opcions: ["Fantasia (1940)", "El viatge de Chihiro", "Toy Story (1995)"], correcta: 0 },
       { pregunta: "Per què hi ha una relació tan íntima de satisfacció humana amb la sincronització en produccions d'animació?", opcions: ["Per complir les directrius de les plataformes digitals.", "Per una reacció plaent de l'oïda i de la vista unides.", "Perquè l'animació de dibuixos es fa sempre amb cançons."], correcta: 1 },
-      { pregunta: "A l'hora de compondre per a animació, és obligatori usar exclusivament instruments d'orquestra simfònica?", opcions: ["Sí, és una norma acadèmica de la producció clàssica.", "No, es poden fer servir sintetitzadors i sons digitals.", "Només és obligatori durant la creació de l'animàtica."], correcta: 1 },
+      { pregunta: "A l'hora de compondre per a animació, és obligatori usar exclusivament instruments d'orquestra simfònica?", opcions: ["Sí, és una norma de la producció clàssica.", "No, es poden fer servir sintetitzadors i sons digitals.", "Només és obligatori durant la creació de l'animàtica."], correcta: 1 },
       { pregunta: "Com es diu el conjunt de diàlegs, música i efectes de sala un cop ajustats els nivells relatius de volum?", opcions: ["El sincronisme labial", "La mescla final d'àudio", "La bíblia de so foley"], correcta: 1 },
-      { pregunta: "Quins dos animadors van dissenyar els cèlebres 12 principis de l'animació?", opcions: ["Frank Thomas i Ollie Johnston", "Walt Disney i Ub Iwerks", "Hayao Miyazaki i Isao Takahata"], correcta: 0 },
+      { pregunta: "Quins dos animadors van dissenyar els cèlebres 12 principis de l'animació?", opcions: ["Frank Thomas i Ollie Johnston", "Walt Disney i Ub Iwerks reals", "Hayao Miyazaki i Isao Takahata"], correcta: 0 },
       { pregunta: "En quin famós llibre d'estudi de l'animació es van recollir originalment aquests 12 principis?", opcions: ["The Animator's Survival Kit", "The Illusion of Life", "Cartoon Animation"], correcta: 1 },
       { pregunta: "En el context dels principis de l'animació, a què es refereix el 'Timing'?", opcions: ["La quantitat de fotogrames usats per fer una acció.", "La durada total de la jornada de treball de l'equip.", "El cronòmetre utilitzat a la taula del dibuixant."], correcta: 0 },
       { pregunta: "Què avalua el principi de 'Spacing' (espaiat) en animació?", opcions: ["La distància de seguretat entre els ordinadors.", "La distribució de dibuixos per crear velocitat.", "L'espai d'emmagatzematge lliure en el disc dur."], correcta: 1 },
@@ -586,11 +663,11 @@
       { pregunta: "Dins del pipeline modern d'un estudi d'animació, la col·laboració interdisciplinària permet...", opcions: ["Optimitzar de manera integrada els recursos tècnics de cada departament.", "Limitar l'ús d'ordinadors exclusivament a la postproducció de la cinta.", "Reduir el temps dedicat a l'escriptura literària del guió d'estudi."], correcta: 0 },
       { pregunta: "Dins del flux de treball d'una pel·lícula, a quina fase correspon l'escriptura i desglòs del guió tècnic?", opcions: ["A la fase de Postproducció.", "A la fase de Preproducció.", "A la fase de Distribució."], correcta: 1 },
       { pregunta: "Com es coneix el fenomen perceptiu pel qual la nostra ment dóna continuïtat a imatges fixes passades veloçment?", opcions: ["Persistència retinal (fenomen Phi)", "Ajustament de color del pla de fons", "Distorsió per l'edició de muntatge"], correcta: 0 },
-      { pregunta: "Històricament, quina tradició musical va heretar el so de cinema?", opcions: ["La música programàtica i el poema simfònic descriptiu.", "Le format de concert de cambra tradicional del barroc.", "L'òpera còmica i el teatre líric de caràcter clàssic."], correcta: 0 },
+      { pregunta: "Històricament, quina tradició musical va heretar el so de cinema?", opcions: ["La música programàtica i el poema simfònic descriptiu.", "El format de concert de cambra tradicional del barroc.", "L'òpera còmica i el teatre líric de caràcter clàssic."], correcta: 0 },
       { pregunta: "Què significa que una música tingui un caràcter 'descriptiu'?", opcions: ["La música de fons que només descriu la vida del director.", "La partitura que imita elements físics naturals i de soroll.", "El text interpretat que defineix la història del projecte."], correcta: 1 },
-      { pregunta: "Per why s'indica que de vegades el disseny de so no ha d'estar massa en primer pla de forma conscient?", opcions: ["Permetre reduir els decibels de les pistes de la mescla.", "Estalviar espai a les targetes digitals de reproducció.", "Evitar que la música eclipsi i distregui de la història."], correcta: 2 },
-      { pregunta: "Quin d'aquests programes és un estàndard en animació, simulació i modelat 3D a nivell global?", opcions: ["Adobe Reader", "Blender 3D", "GIMP d'art"], correcta: 1 },
-      { pregunta: "L'efecte de 'Motion Blur' en moviment serveix per a...", opcions: ["Fer que l'escena visual sembli més opaca per estalviar color.", "Simular el comportament dels objectes quan van molt ràpids.", "Amagar detalls que no s'han pogut netejar de forma adequada."], correcta: 1 },
+      { pregunta: "Per què s'indica que de vegades el disseny de so no ha d'estar massa en primer pla de forma conscient?", opcions: ["Permetre reduir els decibels de les pistes de la mescla.", "Estalviar espai a les targetes digitals de reproducció.", "Evitar que la música eclipsi i distregui de la història."], correcta: 2 },
+      { pregunta: "Quin d'aquests programes és un estàndard en animació, simulació i modelat 3D a nivel global?", opcions: ["Adobe Reader", "Blender 3D", "GIMP d'art"], correcta: 1 },
+      { pregunta: "L'efecte de 'Motion Blur' en moviment serveix per a...", opcions: ["Fer que l'escena visual sembli màximament opaca.", "Simular el comportament dels objectes quan van molt ràpids.", "Amagar detalls que no s'han pogut netejar de forma adequada."], correcta: 1 },
       { pregunta: "La tècnica de moure físicament ninots de fang o ninots articulats i capturar-los fotograma a fotograma és...", opcions: ["L'animació 2D digital", "L'animació Stop-Motion", "La rotoscòpia en línia"], correcta: 1 },
       { pregunta: "Quins dos elements són vitals a l'hora de decidir fer un llançament amb orquestra simfònica en directe?", opcions: ["La climatologia de la sala durant el matí del registre.", "El pressupost disponible i la conveniència de la història.", "El tipus d'idioma de doblatge emprat en la postproducció."], correcta: 1 },
       { pregunta: "Què compon normalment el dossier de venda de la preproducció (Pitch Bible)?", opcions: ["Les mescles de color i els arxius de so consolidats d'àudio.", "Els dissenys, la sinopsi i el guió mostrejat per a la venda.", "Els contractes finals d'exhibició en sales de tot el país."], correcta: 1 },
@@ -598,17 +675,17 @@
       { pregunta: "Quin és el darrer pas de color definitiu a la fase de postproducció?", opcions: ["L'etalonatge o correcció final de color (Color grading).", "La creació del guió de colors (Color script) de la sèrie.", "L'exportació final de les còpies d'emissió del projecte."], correcta: 0 },
       { pregunta: "En quina etapa s'acostuma a registrar la partitura musical definitiva d'un llargmetratge?", opcions: ["Quan es defineixen els primers diàlegs del guió.", "Quan el muntatge d'imatges està tancat (Picture Lock).", "Quan s'inicia la producció artística dels personatges."], correcta: 1 },
       { pregunta: "Com es treballa el ritme en el guió il·lustrat (storyboard)?", opcions: ["Ajustant el temps de lectura i de transició de les vinyetes.", "Definint línies com diferents gruixos de traç en el dibuix.", "El ritme és un factor que no es treballa en aquesta fase."], correcta: 0 },
-      { pregunta: "Dins del disseny visual, què és el 'Color Script'?", opcions: ["Un document amb el guió literari escrit amb color.", "Un system informàtic que pinta les escenes de l'art.", "Una guia visual que descriu els canvis de llum i color."], correcta: 2 },
-      { pregunta: "Quin és el compromís essencial del personatge animat en pantalla?", opcions: ["Mantenir una dinàmica completament realista en cada pla.", "Transmetre intenció, vida pròpia i sentiment de forma visual.", "Garantir que la veu estigui gravada pel doblador més conegut."], correcta: 1 },
+      { pregunta: "Dins del disseny visual, què és el 'Color Script'?", opcions: ["Un document amb el guió literari escrit amb color.", "Un sistema informàtic que pinta les escenes de l'art.", "Una guia visual que descriu els canvis de llum i color."], correcta: 2 },
+      { pregunta: "Quin és el compromís essencial del personatge animat en pantalla?", opcions: ["Mantenir una dinèmica completament realista en cada pla.", "Transmetre intenció, vida pròpia i sentiment de forma visual.", "Garantir que la veu estigui gravada pel doblador màxim."], correcta: 1 },
       { pregunta: "La tècnica de dibuixar sobre imatges d'actors reals prèviament enregistrades s'anomena...", opcions: ["Rotoscòpia", "Layout fílmic", "Keyframing net"], correcta: 0 },
-      { pregunta: "Quin prinsip de l'animació descriu el retard en la detenció dels elements secundaris d'un cos (cabell, roba)?", opcions: ["Follow Through i Overlapping Action", "Squash and Stretch d'animació general", "Slow In i Slow Out de velocitat física"], correcta: 0 },
-      { pregunta: "En l'entorn de la formació especialitzada en animació, a què fa referència el terme 'pipeline de producció'?", opcions: ["Un canal físic de distribució del metratge als cinemes.", "El flux de treball i de fitxers de forma organitzada.", "Un mètode per comprimir les pistes de so de les mescles."], correcta: 1 },
+      { pregunta: "Quin principi d'animació descriu el retard en la detenció dels elements secundaris d'un cos (cabell, roba)?", opcions: ["Follow Through i Overlapping Action", "Squash and Stretch d'animació general", "Slow In i Slow Out de velocitat física"], correcta: 0 },
+      { pregunta: "En el context professional de l'animació, a què fa referència el terme 'pipeline de producció'?", opcions: ["Un canal físic de distribució del metratge als cinemes.", "El flux de treball i de fitxers de forma organitzada.", "Un mètode per comprimir les pistes de so de les mescles."], correcta: 1 },
       { pregunta: "La 'Carta de rodatge' analògica històrica coordinava principalment:", opcions: ["Els canvis de torn del personal d'estudi.", "El temps per fotograma lligat als sons dels diàlegs i les capes.", "El nom dels cinemes on s'emetria la pel·lícula."], correcta: 1 },
       { pregunta: "Com es simula visualment el pes, la inèrcia o la gravetat d'un personatge d'animació?", opcions: ["Es defineixen a través del timing i l'espaiat dels dibuixos.", "Es programen amb les targetes gràfiques durant el render.", "Es deleguen a l'equip de so quand fa els efectes acústics."], correcta: 0 },
-      { pregunta: "El principi clàssic de 'Slow In and Slow Out' de l'animació estableix que...", opcions: ["Que el moviment orgànic és lineal i de velocitat homogènia.", "Que els cossos triguen a agafar velocitat i a frenar-se.", "Que tot el metratge de la pel·lícula s'ha de veure lent."], correcta: 1 },
+      { pregunta: "El principi clàssic de 'Slow In and Slow Out' de l'animació d'estudis d'animació estableix que...", opcions: ["Que el moviment orgànic és lineal i de velocitat homogènia.", "Que els cossos triguen a agafar velocitat i a frenar-se.", "Que tot el metratge de la pel·lícula s'ha de veure lent."], correcta: 1 },
       { pregunta: "Què significa 'Posar en escena' (Staging) segons la teoria clàssica?", opcions: ["Muntar l'estructura per a l'assaig físic de l'equip de veus.", "Presentar una idea o acció de manera completament clara i neta.", "Trobar les referències de focus per als dibuixants de fons."], correcta: 1 },
       { pregunta: "En què es basa l''Exageració' (Exaggeration) com a principi de l'animació?", opcions: ["Un error tècnic provocat per les eines digitals d'edició.", "Un recurs per transmetre la intenció o emoció amb més força.", "Una norma per fer que els fons tinguin molta més brillantor."], correcta: 1 },
-      { pregunta: "Què s'entén per disseny de personatge amb carisma o 'Appeal'?", opcions: ["Que el disseny visual és senzill i utilitza poques línies.", "Que és bonic segons els cànons d'estètica clàssics de l'art.", "Que el disseny del personatge és magnètic, atractiu i lliure."], correcta: 2 },
+      { pregunta: "Què s'entén per disseny de personatge com carisma o 'Appeal'?", opcions: ["Que el disseny visual és senzill i utilitza poques línies.", "Que és bonic segons els cànons d'estètica clàssics de l'art.", "Que el disseny del personatge és magnètic, atractiu i lliure."], correcta: 2 },
       { pregunta: "Quin element visual a la pantalla ajuda a l'enregistrament de l'orquestra en sincronia?", opcions: ["Una barra mòbil o streamer a la pantalla como a referència.", "La lletra del guió sincronitzada de manera tipus karaoke.", "Un efecte d'augment gradual de la il·luminació d'una escena."], correcta: 0 },
       { pregunta: "Què és el 'Compositing' o Composició Digital?", opcions: ["La partitura general de la cançó principal de la pel·lícula.", "La integració de fons, personatges, efectes i llums en un pla.", "La plantilla de pressupost feta pel departament de producció."], correcta: 1 },
       { pregunta: "En el context d'una planificació de producció, el document anomenat 'Full de ruta' o 'Milestones' serveix per...", opcions: ["Establir fites crítiques de lliurament al llarg del projecte.", "Configurar la il·luminació de la sala de mescla de so foley.", "Redactar el guió de text definitiu que es lliurarà a la premsa."], correcta: 0 },
@@ -619,10 +696,10 @@
       { pregunta: "Quin objectiu té establir un correcte flux de treball de dades?", opcions: ["Assegurar que els fitxers passen ràpid i sense incidències.", "Incrementar de manera digital els decibels de la pista de so.", "Reemplaçar els dibuixants de la fase inicial pels computadors."], correcta: 0 },
       { pregunta: "Quina característica han de complir els fons (Backgrounds)?", opcions: ["S'Han de pintar a 24 dibuixos per segon de manera obligatòria.", "Han d'ambientar l'escena sans treure el focus del personatge.", "Han de ser d'un color homogeni i fosc per millorar el render."], correcta: 1 },
       { pregunta: "En producció 3D, què representa el procés de 'Rigging'?", opcions: ["Crear un esquelet digital de control perquè el model es mogui.", "La combinació i muntatge final de la línia de diàlegs del film.", "La revisió dels guions per corregir l'ortografia de les veus."], correcta: 0 },
-      { pregunta: "Històricament, l'origen de la paraula 'Cartoon' prové de...", opcions: ["Dels cartrons fets a escala real de referència per a frescos.", "Dels dibuixos satírics inicials publicats a diaris impresos.", "Dels envasos protectors del cel·luloide clàssic del cinema."], correcta: 1 },
+      { pregunta: "Històricament, l'origen de la paraula 'Cartoon' prové de...", opcions: ["Dels cartrons fets a escala real de referència per a frescos.", "Dels dibuixos satírics inicials publicats a diaris impresos.", "Dels envasos protectors del cel luloide clàssic del cinema."], correcta: 1 },
       { pregunta: "Quin és l'indicador fonamental de planificació temporal que gestiona producció?", opcions: ["El cronòmetre manual utilitzat en les fases d'animació clau.", "El cronograma de seguiment de fites per controlar el projecte.", "El metrònom emprat per l'orquestra durant l'assaig musical."], correcta: 1 },
       { pregunta: "Com actuen els efectes de sala (Foley) a nivell visual?", opcions: ["Aconseguir que la càmera es mogui d'una manera més lents.", "Aportar versemblança física a través dels sorolls del món real.", "Sincronitzar dues o més pistes de la partitura de la música."], correcta: 1 },
-      { pregunta: "Un moviment 'lineal homogeni' en animació indica...", opcions: ["Que un objecte es mou a velocitat constant sense acceleració.", "Que fa trajectòries amb arcs molt pronunciats per pantalla.", "Que té un ritme variable i brusc d'un fotograma a un altre."], correcta: 0 },
+      { pregunta: "Un moviment 'lineal homogeni' en animació indica...", opcions: ["Que un objecte es mou a velocitat constant sense acceleració.", "Que fa trajectòries com arcs molt pronunciats per pantalla.", "Que té un ritme variable i brusc d'un fotograma a un altre."], correcta: 0 },
       { pregunta: "El prinsip de 'Solid Drawing' (Dibuix Sòlid) demana a l'artista d'animació:", opcions: ["Entendre el personatge en un espai 3D amb volum, pes i eixos.", "Mantenir un traç molt rígid i gruixut per a totes les línies.", "Dibuixar sobre superfícies molt dures per evitar vibracions."], correcta: 0 },
       { pregunta: "L'art d'explicar la història i situar la càmera perquè s'entengui ràpidament l'acció és la base de quin principi?", opcions: ["Squash and Stretch", "Staging (Posada en escena)", "Timing"], correcta: 1 },
       { pregunta: "Per què l'animàtica és considerada la guia de referència visual per a la línia de disseny?", opcions: ["Perquè és el guió en text consolidat i corregit de l'obra.", "Perquè defineix el timing i plans reals abans de l'animació.", "Perquè conté la gamma final de colors de cadascun dels plans."], correcta: 1 },
@@ -631,20 +708,20 @@
       { pregunta: "Com defineixen l'animació professional Frank Thomas i Ollie Johnston?", opcions: ["Com l'acte de donar vida i personalitat als personatges a través del moviment.", "Com la reproducció tècnica de fotogrames fixos per assolir un ritme constant.", "Com la combinació d'efectes físics i de fons pintats en un suport analògic."], correcta: 0 },
       { pregunta: "Què és un 'Line Test' durant la producció d'animació tradicional?", opcions: ["Un assaig d'imatges sense pintar per valorar el moviment.", "Una eina digital per calcular la densitat dels traços d'art.", "La prova informàtica de rendiment de les targetes de render."], correcta: 0 },
       { pregunta: "De quina manera pot influir la partitura musical a millorar una escena amb problemes narratius?", opcions: ["Aportar emoció i un ritme harmònic que compensi la seqüència.", "Reemplaçar directament les paletes cromàtiques dels personatges.", "Això és un objectiu inassolible ja que la imatge sempre mana."], correcta: 0 },
-      { pregunta: "El darrer i definitiu muntatge aprovat d'imatges rep generalment el nom de...", opcions: ["El layout provisional de càmeres", "El tancament de muntatge d'imatges", "El dossier de vendes inicial"], correcta: 1 },
+      { pregunta: "El darrer i definitiu muntatge aprovat d'imatges rep generalment el nom de...", opcions: ["El layout provisional de càmeres", "El tancament de muntatge d'imatges (Picture Lock)", "El dossier de vendes inicial"], correcta: 1 },
       { pregunta: "Qui coordina i s'encarrega d'homogeneïtzar i garantir l'estil artístic general de tot l'art del projecte?", opcions: ["La Direcció d'Art de la pel·lícula", "L'Equip de Producció del projecte", "El departament de Muntatge de vídeo"], correcta: 0 },
       { pregunta: "En l'enregistrament inicial de veus, la pista de diàlegs es lliura als animadors perquè...", opcions: ["Triar els colors de la roba del personatge en funció del to.", "Saber la durada exacta en fotogrames de cada gest o paraula.", "No es lliura fins que no s'ha tancat tota l'animació de fons."], correcta: 1 },
       { pregunta: "Quin és l'objectiu de comercialitzar la banda sonora fílmica per separat?", opcions: ["Garantir un format de consum lliure i independent de l'obra.", "Evitar problemes relacionats amb els drets del film de vídeo.", "Augmentar les tarifes de venda de les entrades de les sales."], correcta: 0 },
       { pregunta: "Si l'equip requereix canviar la lluminositat o integrar millor un fons quan l'animació ja té color definitiu...", opcions: ["S'ha de redibuixar de manera manual tota la seqüència de plans.", "S'ajusta a la fase de Composició Digital durant la postproducció.", "Està prohibit fer qualsevol modificació de llum en aquest punt."], correcta: 1 },
       { pregunta: "A quin departament correspon dissenyar l'aspecte dels fons o escenaris?", opcions: ["L'equip d'intercaladors de la línia final dels personatges.", "El departament d'Art i de Disseny de Fons (Background design).", "El departament de So i d'Edició de diàlegs de postproducció."], correcta: 1 },
-      { pregunta: "Què avalua el disseny dels 'Props'?", opcions: ["Els objectes que utilitzen els personatges durant la història.", "Els marcadors de temps d'exposició de la carta de rodatge.", "Els models tridimensionals del programari informàtic usat."], correcta: 0 },
+      { pregunta: "Què avalua el disseny dels 'Props'?", opcions: ["Els objectes que utilitzen os personatges durant la història.", "Els marcadors de temps d'exposició de la carta de rodatge.", "Els models tridimensionals del programari informàtic usat."], correcta: 0 },
       { pregunta: "Quina descripció respon millor al concepte de 'Foley Artist' (Tècnic de sala)?", opcions: ["Qui s'encarrega d'enregistrar manualment els efectes de soroll.", "Qui realitza els primers dibuixos expressius dels personatges.", "Qui compon els diferents temes musicals de la música incidental."], correcta: 0 },
       { pregunta: "Què és la 'Música Diegètica'?", opcions: ["La música de fons que l'audiència percep des de fora del món.", "La música que forma part real de l'entorn de la pròpia escena.", "La melodia d'assaig provisional usada durant la preproducció."], correcta: 1 },
       { pregunta: "Què significa l'expressió 'Picture Lock'?", opcions: ["El tancament definitiu de muntatge per poder afegir color i so.", "La confirmació final dels dissenys de personatges i escenaris.", "L'error d'arxiu que impedeix editar de nou el material gràfic."], correcta: 0 },
-      { pregunta: "Quin és l'objectiu d'analitzar de forma crítica les 'Milestones' d'un calendari?", opcions: ["Verificar que la producció s'ajusta als terminis del calendari.", "Mesurar el volum i la freqüència dels altaveus de les sales.", "Exportar els diferents talls i les còpies finals de la sèrie."], correcta: 0 },
+      { pregunta: "Quin és l'objectiu d'analitzar de forma crítica les 'Milestones' d'un calendari?", opcions: ["Verificar que la producció s'ajusta als terminis del calendari.", "Mesurar el volum i la freqüència dels altaveus de les sales.", "Exportar os diferents talls i les còpies finals de la sèrie."], correcta: 0 },
       { pregunta: "En l'animació tradicional, per què serveix el registre de 'Peg Bar' (barra de registre)?", opcions: ["Alinear perfectament el paper durant el dibuix i la captura.", "Calcular el valor i les despeses dels materials tradicionals.", "Verificar l'estat dels llapis i dels elements de dibuix físic."], correcta: 0 },
       { pregunta: "A la postproducció digital, què significa el procés de 'Conformació'?", opcions: ["Reemplaçar els plans de baixa resolució per la versió final.", "Crear els dibuixos i els dissenys inicials de personatges.", "Aprovar el guió de text definitiu de la fase de producció."], correcta: 0 },
-      { pregunta: "Per què la llum és un element clau dins de l'etapa de Composició Digital?", opcions: ["Integrar de manera unificada les ombres i tons de cada element.", "Garantir un menor pes de les dades de cadascuna de les escenes.", "Enregistrar els efectes acústics d'estudi durant la mescla."], correcta: 0 },
+      { pregunta: "Per què la llum és un element clau dins de l'etapa de Composició Digital?", opcions: ["Integrar de manera unificada les ombres i tons de cada element.", "Garantir un menor pes de les dades de cadascuna de l'escenes.", "Enregistrar els efectes acústics d'estudi durant la mescla."], correcta: 0 },
       { pregunta: "Quin és l'objectiu del 'Color Script' respecte al to psicològic de la pel·lícula?", opcions: ["Definir les atmosferes cromàtiques que acompanyen la història.", "Decidir de forma lliure els tons de color dels personatges.", "Triar el nom definitiu d'acord amb el format de distribució."], correcta: 0 },
       { pregunta: "En animació, la sincronització dels moviments bucals amb els sons de la veu és el...", opcions: ["Sincronitzar les boques dels dibuixos amb l'àudio enregistrat.", "Configurar els nivells de color i d'etalonatge d'una escena.", "Organitzar de manera provisional les pistes de so de la mescla."], correcta: 0 }
     ];
@@ -655,90 +732,155 @@
     let respostaSeleccionada = null;
     let estatResposta = null; // 'correcte' | 'incorrecte' | null
 
+    // --- INICIALITZACIÓ MÀSTER D'ESTATS (UNA SOLA VEGADA AL CARREGAR) ---
+    function inicialitzarEstatsJocs() {
+      // 1. Glossari
+      glossariState = {};
+      repteGlossari.forEach(item => {
+        glossariState[item.id] = null;
+      });
+      termesGlossariRestants = [...repteGlossari].sort(() => 0.5 - Math.random());
+      definicionsOrdre = [...repteGlossari].sort(() => 0.5 - Math.random());
+
+      // 2. Fases
+      fasesState = { pre: [], pro: [], post: [] };
+      tasquesRestants = [...repteFasesTasques].sort(() => 0.5 - Math.random());
+
+      // 3. Rols
+      rolsState = { direccio: [], produccio: [], diranimacio: [], muntatge: [], so: [] };
+      rolsRestants = [...repteRolsDefinicions].sort(() => 0.5 - Math.random());
+    }
+
     // --- INTERACCIONS GENERALS DE TRANSICIÓ DE PESTANYES ---
     function canviarTab(tabId) {
       tabActiva = tabId;
       
       // Amagar totes les seccions principals
+      document.getElementById('sec-glossari').classList.add('hidden');
       document.getElementById('sec-fases').classList.add('hidden');
       document.getElementById('sec-rols').classList.add('hidden');
       document.getElementById('sec-quiz').classList.add('hidden');
       document.getElementById('sec-resultats').classList.add('hidden');
 
-      // Actualització visual de la botonera de navegació
-      const btnFases = document.getElementById('btn-fases');
-      const btnRols = document.getElementById('btn-rols');
-      const btnQuiz = document.getElementById('btn-quiz');
+      actualitzarBotonsNavegacio();
 
-      // S'aplica estil segons estat actiu/inactiu
-      btnFases.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 bg-amber-700/50 hover:bg-amber-600 text-amber-100 flex items-center gap-1";
-      btnRols.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 bg-amber-700/50 hover:bg-amber-600 text-amber-100 flex items-center gap-1";
-      
-      actualitzarEstatQuizButton();
-
-      if (tabId === 'fases') {
+      if (tabId === 'glossari') {
+        document.getElementById('sec-glossari').classList.remove('hidden');
+        if (glossariCompletat) {
+          document.getElementById('glossari-joc').classList.add('hidden');
+          document.getElementById('glossari-contingut').classList.remove('hidden');
+        } else {
+          document.getElementById('glossari-joc').classList.remove('hidden');
+          document.getElementById('glossari-contingut').classList.add('hidden');
+          // Només renderitzem, mantenint l'estat en el qual s'ha quedat
+          renderDefinitionsGlossari();
+          renderDraggablesGlossari();
+        }
+      } else if (tabId === 'fases') {
         document.getElementById('sec-fases').classList.remove('hidden');
-        btnFases.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 bg-amber-100 text-amber-900 shadow-inner flex items-center gap-1";
-        
         if (fasesDesbloquejades) {
           document.getElementById('fases-joc').classList.add('hidden');
           document.getElementById('fases-contingut').classList.remove('hidden');
         } else {
           document.getElementById('fases-joc').classList.remove('hidden');
           document.getElementById('fases-contingut').classList.add('hidden');
-          generarJocFases();
+          // Es recupera el punt exacte on estava l'activitat
+          renderDraggablesFases();
         }
       } else if (tabId === 'rols') {
         document.getElementById('sec-rols').classList.remove('hidden');
-        btnRols.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 bg-amber-100 text-amber-900 shadow-inner flex items-center gap-1";
-        
         if (rolsDesbloquejats) {
           document.getElementById('rols-joc').classList.add('hidden');
           document.getElementById('rols-contingut').classList.remove('hidden');
         } else {
           document.getElementById('rols-joc').classList.remove('hidden');
           document.getElementById('rols-contingut').classList.add('hidden');
-          generarJocRols();
+          // Es recupera el punt exacte on estava l'activitat
+          renderDraggablesRols();
         }
       } else if (tabId === 'quiz') {
-        document.getElementById('sec-quiz').classList.remove('hidden');
-        btnQuiz.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 bg-amber-100 text-amber-900 shadow-inner flex items-center gap-1";
-        iniciarJocAleatori();
+        const totCompletat = glossariCompletat && fasesDesbloquejades && rolsDesbloquejats;
+        if (totCompletat) {
+          document.getElementById('sec-quiz').classList.remove('hidden');
+          iniciarJocAleatori();
+        } else {
+          // Bloqueig de seguretat redundat per si de cas
+          canviarTab('glossari');
+        }
       }
     }
 
-    function actualitzarEstatQuizButton() {
+    function actualitzarBotonsNavegacio() {
+      const btnGlossari = document.getElementById('btn-glossari');
+      const btnFases = document.getElementById('btn-fases');
+      const btnRols = document.getElementById('btn-rols');
       const btnQuiz = document.getElementById('btn-quiz');
-      const lockQuiz = document.getElementById('lock-quiz');
-      
-      if (fasesDesbloquejades && rolsDesbloquejats) {
+
+      // 1. GLOSSARI (Sempre actiu)
+      if (glossariCompletat) {
+        if (tabActiva === 'glossari') {
+          btnGlossari.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 flex items-center gap-1 bg-green-800 text-white ring-4 ring-green-300 shadow-inner";
+        } else {
+          btnGlossari.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 flex items-center gap-1 bg-green-600 hover:bg-green-700 text-white cursor-pointer";
+        }
+        btnGlossari.innerHTML = 'Glossari ✓';
+      } else {
+        if (tabActiva === 'glossari') {
+          btnGlossari.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 flex items-center gap-1 bg-orange-700 text-white ring-4 ring-orange-300 shadow-inner";
+        } else {
+          btnGlossari.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 flex items-center gap-1 bg-orange-500 hover:bg-orange-600 text-white cursor-pointer";
+        }
+        btnGlossari.innerHTML = 'Glossari 🔓';
+      }
+
+      // 2. EL PROCÉS (Sempre actiu i indiferent)
+      if (fasesDesbloquejades) {
+        if (tabActiva === 'fases') {
+          btnFases.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 flex items-center gap-1 bg-green-800 text-white ring-4 ring-green-300 shadow-inner";
+        } else {
+          btnFases.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 flex items-center gap-1 bg-green-600 hover:bg-green-700 text-white cursor-pointer";
+        }
+        btnFases.innerHTML = 'El Procés ✓';
+      } else {
+        if (tabActiva === 'fases') {
+          btnFases.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 flex items-center gap-1 bg-orange-700 text-white ring-4 ring-orange-300 shadow-inner";
+        } else {
+          btnFases.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 flex items-center gap-1 bg-orange-500 hover:bg-orange-600 text-white cursor-pointer";
+        }
+        btnFases.innerHTML = 'El Procés 🔓';
+      }
+
+      // 3. L'EQUIP (Sempre actiu i indiferent)
+      if (rolsDesbloquejats) {
+        if (tabActiva === 'rols') {
+          btnRols.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 flex items-center gap-1 bg-green-800 text-white ring-4 ring-green-300 shadow-inner";
+        } else {
+          btnRols.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 flex items-center gap-1 bg-green-600 hover:bg-green-700 text-white cursor-pointer";
+        }
+        btnRols.innerHTML = "L'Equip ✓";
+      } else {
+        if (tabActiva === 'rols') {
+          btnRols.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 flex items-center gap-1 bg-orange-700 text-white ring-4 ring-orange-300 shadow-inner";
+        } else {
+          btnRols.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 flex items-center gap-1 bg-orange-500 hover:bg-orange-600 text-white cursor-pointer";
+        }
+        btnRols.innerHTML = "L'Equip 🔓";
+      }
+
+      // 4. QUIZ (Bloquejat vermell si no s'han superat les 3 anteriors)
+      const totCompletat = glossariCompletat && fasesDesbloquejades && rolsDesbloquejats;
+      if (totCompletat) {
         btnQuiz.disabled = false;
         if (tabActiva === 'quiz') {
-          btnQuiz.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 bg-amber-100 text-amber-900 shadow-inner flex items-center gap-1";
+          btnQuiz.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 flex items-center gap-1 bg-green-800 text-white ring-4 ring-green-300 shadow-inner cursor-pointer";
         } else {
-          btnQuiz.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 bg-amber-700/50 hover:bg-amber-600 text-amber-100 flex items-center gap-1 cursor-pointer";
+          btnQuiz.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 flex items-center gap-1 bg-green-600 hover:bg-green-700 text-white cursor-pointer";
         }
-        if (lockQuiz) lockQuiz.innerText = "🔓";
+        btnQuiz.innerHTML = "Posa't a Prova! 🔓";
       } else {
         btnQuiz.disabled = true;
-        btnQuiz.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 bg-stone-300 text-stone-500 opacity-60 cursor-not-allowed flex items-center gap-1";
-        if (lockQuiz) lockQuiz.innerText = "🔒";
-      }
-    }
-
-    function toggleTasca(id) {
-      const el = document.getElementById('tasca-' + id);
-      if (el.classList.contains('hidden')) {
-        if (tascaObertaId) {
-          const antic = document.getElementById('tasca-' + tascaObertaId);
-          if (antic) antic.classList.add('hidden');
-        }
-        el.classList.remove('hidden');
-        el.classList.add('animate-slide-down');
-        tascaObertaId = id;
-      } else {
-        el.classList.add('hidden');
-        tascaObertaId = null;
+        btnQuiz.className = "px-6 py-2 rounded-full font-semibold transition-all duration-300 bg-red-600 text-white opacity-85 cursor-not-allowed flex items-center gap-1";
+        btnQuiz.innerHTML = "Posa't a Prova! 🔒";
       }
     }
 
@@ -753,6 +895,7 @@
       positionTooltip(ev);
     }
 
+    // El moviment del tooltip se segueix controlant dinàmicament
     function moveTooltip(ev) {
       positionTooltip(ev);
     }
@@ -792,25 +935,255 @@
       tooltip.style.top = top + 'px';
     }
 
-    // --- ENGINY DEL JOC 1: DESBLOQUEIG DE FASES (VALIDACIÓ AL FINAL SENSE PERDRE PROGRÉS) ---
-    function generarJocFases() {
-      fasesState = { pre: [], pro: [], post: [] };
-      document.getElementById('list-pre').innerHTML = '';
-      document.getElementById('list-pro').innerHTML = '';
-      document.getElementById('list-post').innerHTML = '';
-      document.getElementById('fases-feedback').innerHTML = '';
-      document.getElementById('fases-feedback').className = "text-center text-sm font-semibold min-h-[20px] text-stone-500";
-      
-      selectedFaseItemId = null;
-      tasquesRestants = [...repteFasesTasques].sort(() => 0.5 - Math.random());
-      renderDraggablesFases();
+
+    // --- ENGINY DEL JOC 0: DESBLOQUEIG DE GLOSSARI (VALIDACIÓ SENSE RESIDUAL DE CERO) ---
+    function reiniciarJocGlossari() {
+      glossariCompletat = false;
+      inicialitzarEstatsJocs(); // Reinicia tot a 0 si ho trien
+      canviarTab('glossari');
     }
 
+    function renderDefinitionsGlossari() {
+      const grid = document.getElementById('glossari-definitions-grid');
+      grid.innerHTML = '';
+      
+      definicionsOrdre.forEach(item => {
+        const box = document.createElement('div');
+        box.id = 'drop-g-' + item.id;
+        box.ondragover = allowDrop;
+        box.ondragleave = dragLeave;
+        box.ondrop = function(ev) { handleDropGlossari(ev, item.id); };
+        box.onclick = function() { handleZoneClickGlossari(item.id); };
+        box.className = "border-2 border-dashed border-stone-200 bg-stone-50/20 p-3 rounded-xl flex flex-col justify-between gap-2 min-h-[115px] transition-all duration-200 text-xs animate-fade-in";
+        
+        const p = document.createElement('p');
+        p.className = "text-stone-600 font-medium leading-relaxed";
+        p.innerText = item.def;
+        
+        const dropArea = document.createElement('div');
+        dropArea.id = 'list-g-' + item.id;
+        dropArea.className = "min-h-[38px] p-1 flex items-center justify-center bg-stone-100/40 rounded-lg border border-dashed border-stone-300";
+        
+        box.appendChild(p);
+        box.appendChild(dropArea);
+        grid.appendChild(box);
+      });
+    }
+
+    function renderDraggablesGlossari() {
+      const container = document.getElementById('glossari-draggables-container');
+      container.innerHTML = '';
+
+      // Pool de termes pendents
+      termesGlossariRestants.forEach(terme => {
+        const item = document.createElement('div');
+        item.id = 'terme-' + terme.id;
+        item.draggable = !glossariCompletat;
+        item.className = "draggable-item p-3 bg-white border-2 border-stone-200 rounded-xl shadow-sm hover:border-amber-400 hover:shadow text-xs font-semibold text-stone-700 transition-all select-none text-center";
+        if (selectedGlossariItemId === terme.id) {
+          item.classList.add('ring-4', 'ring-amber-500');
+        }
+        item.innerText = terme.text;
+
+        item.ondragstart = function(ev) {
+          ev.dataTransfer.setData("text", terme.id);
+          highlightZonesGlossari(true);
+        };
+        item.ondragend = function() {
+          highlightZonesGlossari(false);
+        };
+        item.onclick = function(ev) {
+          ev.stopPropagation();
+          selectGlossariItem(terme.id);
+        };
+        container.appendChild(item);
+      });
+
+      // Categories dels blocs ja col·locats
+      repteGlossari.forEach(item => {
+        const targetList = document.getElementById('list-g-' + item.id);
+        if (!targetList) return;
+        targetList.innerHTML = '';
+        const assigned = glossariState[item.id];
+        if (assigned) {
+          const pill = document.createElement('div');
+          pill.id = 'terme-' + assigned.id;
+          pill.draggable = !glossariCompletat;
+          pill.className = "draggable-item p-1.5 bg-amber-50 border-2 border-amber-200 rounded-lg text-xs font-bold shadow-sm hover:border-amber-400 transition-all cursor-grab select-none text-center w-full leading-tight";
+          if (selectedGlossariItemId === assigned.id) {
+            pill.classList.add('ring-4', 'ring-amber-500');
+          }
+          pill.innerText = assigned.text;
+
+          pill.ondragstart = function(ev) {
+            ev.dataTransfer.setData("text", assigned.id);
+            highlightZonesGlossari(true);
+          };
+          pill.ondragend = function() {
+            highlightZonesGlossari(false);
+          };
+          pill.onclick = function(ev) {
+            ev.stopPropagation();
+            selectGlossariItem(assigned.id);
+          };
+          targetList.appendChild(pill);
+        }
+      });
+
+      // Validació només quan tots estiguin distribuïts
+      const totalColocats = Object.values(glossariState).filter(x => x !== null).length;
+      if (totalColocats === repteGlossari.length) {
+        verificarJocGlossariComplet();
+      } else {
+        if (!glossariCompletat) {
+          document.getElementById('glossari-feedback').innerHTML = '';
+        }
+      }
+    }
+
+    function selectGlossariItem(itemId) {
+      if (glossariCompletat) return;
+      if (selectedGlossariItemId === itemId) {
+        selectedGlossariItemId = null;
+        document.getElementById('glossari-feedback').innerText = "";
+        document.getElementById('glossari-feedback').className = "text-center text-sm font-semibold text-stone-500";
+      } else {
+        selectedGlossariItemId = itemId;
+        document.getElementById('glossari-feedback').innerText = "Has seleccionat el concepte. Ara prem sobre la caixa de la definició desitjada o sobre la llista de l'esquerra per moure'l.";
+        document.getElementById('glossari-feedback').className = "text-center text-sm font-semibold text-amber-600 animate-pulse";
+      }
+      renderDraggablesGlossari();
+    }
+
+    function highlightZonesGlossari(show) {
+      const zones = ['glossari-source-zone'];
+      repteGlossari.forEach(item => {
+        zones.push('drop-g-' + item.id);
+      });
+      zones.forEach(z => {
+        const el = document.getElementById(z);
+        if (el) {
+          if (show) {
+            el.classList.add('border-amber-400', 'bg-amber-100/10');
+          } else {
+            el.classList.remove('border-amber-400', 'bg-amber-100/10', 'dropzone-active');
+          }
+        }
+      });
+    }
+
+    function handleDropGlossari(ev, catDesti) {
+      ev.preventDefault();
+      highlightZonesGlossari(false);
+      const itemId = ev.dataTransfer.getData("text");
+      processarMovimentGlossari(itemId, catDesti);
+    }
+
+    function handleZoneClickGlossari(catDesti) {
+      if (selectedGlossariItemId) {
+        processarMovimentGlossari(selectedGlossariItemId, catDesti);
+        selectedGlossariItemId = null;
+      }
+    }
+
+    function processarMovimentGlossari(itemId, catDesti) {
+      if (glossariCompletat) return;
+
+      let terme = null;
+
+      // Buscar al pool d'origen
+      const poolIdx = termesGlossariRestants.findIndex(t => t.id === itemId);
+      if (poolIdx !== -1) {
+        terme = termesGlossariRestants[poolIdx];
+        termesGlossariRestants.splice(poolIdx, 1);
+      }
+
+      // Buscar a les zones de destinació
+      Object.keys(glossariState).forEach(key => {
+        if (glossariState[key] && glossariState[key].id === itemId) {
+          terme = glossariState[key];
+          glossariState[key] = null;
+        }
+      });
+
+      if (!terme) return;
+
+      // Afegir a la zona triada
+      if (catDesti === 'source') {
+        termesGlossariRestants.push(terme);
+      } else {
+        if (glossariState[catDesti]) {
+          termesGlossariRestants.push(glossariState[catDesti]);
+        }
+        glossariState[catDesti] = terme;
+      }
+
+      renderDraggablesGlossari();
+    }
+
+    function verificarJocGlossariComplet() {
+      let totCorrecte = true;
+      Object.keys(glossariState).forEach(key => {
+        const assigned = glossariState[key];
+        if (!assigned || assigned.id !== key) {
+          totCorrecte = false;
+        }
+      });
+
+      const feedback = document.getElementById('glossari-feedback');
+
+      if (totCorrecte) {
+        glossariCompletat = true;
+        
+        // Pintat verd de correspondència definitiva
+        repteGlossari.forEach(item => {
+          const targetList = document.getElementById('list-g-' + item.id);
+          if (targetList) {
+            targetList.innerHTML = '';
+            const pill = document.createElement('div');
+            pill.className = "p-1.5 bg-green-50 text-green-800 border-2 border-green-200 rounded-lg text-xs font-bold animate-fade-in text-center w-full";
+            pill.innerText = `✓ ${item.text}`;
+            targetList.appendChild(pill);
+          }
+        });
+
+        feedback.innerHTML = "🎉 Excel·lent! Has emparellat tots els conceptes correctament.";
+        feedback.className = "text-center text-md font-bold text-green-600 animate-bounce";
+
+        // Generar consulta llegeble del glossari
+        const fullList = document.getElementById('glossari-list-full');
+        fullList.innerHTML = '';
+        repteGlossari.forEach(item => {
+          const div = document.createElement('div');
+          div.className = "space-y-1 p-4 bg-stone-50 rounded-2xl border border-stone-200 animate-fade-in shadow-sm";
+          div.innerHTML = `<h3 class="font-bold text-amber-800 text-md">${item.text}</h3><p class="text-stone-600 text-sm leading-relaxed">${item.def}</p>`;
+          fullList.appendChild(div);
+        });
+
+        actualitzarBotonsNavegacio();
+
+        setTimeout(() => {
+          document.getElementById('glossari-joc').classList.add('hidden');
+          document.getElementById('glossari-contingut').classList.remove('hidden');
+        }, 1500);
+      } else {
+        feedback.innerHTML = `
+          <div class="space-y-2 bg-red-50 border-2 border-red-200 p-4 rounded-xl animate-fade-in">
+            <p class="text-red-600 font-bold">Hi ha algun concepte col·locat incorrectament en les definicions.</p>
+            <p class="text-stone-600 text-xs font-medium">Revisa les combinacions i canvia lliurement els termes de caixa per corregir els errors!</p>
+          </div>
+        `;
+        feedback.className = "text-center";
+      }
+    }
+
+
+    // --- ENGINY DEL JOC 1: DESBLOQUEIG DE FASES (VALIDACIÓ AL FINAL SENSE RESIDUALS DE CERO) ---
     function renderDraggablesFases() {
       const container = document.getElementById('fases-draggables-container');
       container.innerHTML = '';
 
-      // Render pool d'elements pendents
+      // Pool d'elements pendents
       tasquesRestants.forEach(tasca => {
         const item = document.createElement('div');
         item.id = tasca.id;
@@ -842,7 +1215,7 @@
         container.appendChild(item);
       });
 
-      // Render categories de destinació per mostrar elements ja col·locats
+      // Categories de destinació
       ['pre', 'pro', 'post'].forEach(cat => {
         const targetList = document.getElementById('list-' + cat);
         targetList.innerHTML = '';
@@ -869,7 +1242,7 @@
             selectFaseItem(tasca.id);
           };
 
-          // Esdeveniments interactius per mostrar explicació flotant també a les col·locades
+          // Tooltip de consulta interactiva
           pill.onmouseenter = function(ev) { showTooltip(ev, tasca.id); };
           pill.onmousemove = function(ev) { moveTooltip(ev); };
           pill.onmouseleave = function() { hideTooltip(); };
@@ -878,13 +1251,12 @@
         });
       });
 
-      // Validació només quan tots els elements del banc s'hagin distribuït
+      // Validació només quan es distribueixin totes les tasques
       const totalColocades = fasesState.pre.length + fasesState.pro.length + fasesState.post.length;
       if (totalColocades === repteFasesTasques.length) {
         verificarJocFasesComplet();
       } else {
         if (!fasesDesbloquejades) {
-          // Es neteja el feedback si l'estudiantat en desplaça alguna de tornada al panell
           document.getElementById('fases-feedback').innerHTML = '';
         }
       }
@@ -946,13 +1318,14 @@
 
       let tasca = null;
 
-      // Buscar de quin dels possibles llocs prové i treure-la d'allà
+      // Buscar del pool d'origen
       const poolIdx = tasquesRestants.findIndex(t => t.id === itemId);
       if (poolIdx !== -1) {
         tasca = tasquesRestants[poolIdx];
         tasquesRestants.splice(poolIdx, 1);
       }
 
+      // Buscar de destinacions prèvies
       ['pre', 'pro', 'post'].forEach(cat => {
         const catIdx = fasesState[cat].findIndex(t => t.id === itemId);
         if (catIdx !== -1) {
@@ -963,7 +1336,7 @@
 
       if (!tasca) return;
 
-      // Afegir la tasca a la nova zona de destinació triada
+      // Ubicar a la destinació final seleccionada
       if (catDesti === 'source') {
         tasquesRestants.push(tasca);
       } else {
@@ -987,10 +1360,8 @@
 
       if (totCorrecte) {
         fasesDesbloquejades = true;
-        document.getElementById('lock-fases').innerText = '✓';
-        document.getElementById('lock-fases').className = "text-green-300";
         
-        // Es pinten en verd definitiu no interactiu
+        // Es pinten en verd definitivament
         ['pre', 'pro', 'post'].forEach(cat => {
           const targetList = document.getElementById('list-' + cat);
           targetList.innerHTML = '';
@@ -1005,7 +1376,7 @@
         feedback.innerHTML = "🎉 Excel·lent! Has ordenat el flux de treball correctament. S'ha obert la consulta completa!";
         feedback.className = "text-center text-md font-bold text-green-600 animate-bounce";
 
-        actualitzarEstatQuizButton();
+        actualitzarBotonsNavegacio();
 
         setTimeout(() => {
           document.getElementById('fases-joc').classList.add('hidden');
@@ -1023,28 +1394,12 @@
     }
 
 
-    // --- ENGINY DEL JOC 2: DESBLOQUEIG DE ROLS (VALIDACIÓ AL FINAL SENSE PERDRE PROGRÉS) ---
-    function generarJocRols() {
-      rolsState = { direccio: [], produccio: [], diranimacio: [], muntatge: [], so: [] };
-      document.getElementById('list-direccio').innerHTML = '';
-      document.getElementById('list-produccio').innerHTML = '';
-      document.getElementById('list-diranimacio').innerHTML = '';
-      document.getElementById('list-muntatge').innerHTML = '';
-      document.getElementById('list-so').innerHTML = '';
-      
-      document.getElementById('rols-feedback').innerHTML = '';
-      document.getElementById('rols-feedback').className = "text-center text-sm font-semibold min-h-[20px] text-stone-500";
-      
-      selectedRolItemId = null;
-      rolsRestants = [...repteRolsDefinicions].sort(() => 0.5 - Math.random());
-      renderDraggablesRols();
-    }
-
+    // --- ENGINY DEL JOC 2: DESBLOQUEIG DE ROLS (VALIDACIÓ AL FINAL SENSE RESIDUALS DE CERO) ---
     function renderDraggablesRols() {
       const container = document.getElementById('rols-draggables-container');
       container.innerHTML = '';
 
-      // Render pool d'elements pendents
+      // Pool de definicions pendents
       rolsRestants.forEach(definicio => {
         const item = document.createElement('div');
         item.id = definicio.id;
@@ -1069,7 +1424,7 @@
         container.appendChild(item);
       });
 
-      // Render categories dels departaments
+      // Categories dels departaments (ja col·locades)
       ['direccio', 'produccio', 'diranimacio', 'muntatge', 'so'].forEach(cat => {
         const targetList = document.getElementById('list-' + cat);
         targetList.innerHTML = '';
@@ -1098,7 +1453,7 @@
         });
       });
 
-      // Validació automàtica en tenir col·locades totes
+      // Validació automàtica al tenir-les totes distribuïdes
       const totalColocades = rolsState.direccio.length + rolsState.produccio.length + rolsState.diranimacio.length + rolsState.muntatge.length + rolsState.so.length;
       if (totalColocades === repteRolsDefinicions.length) {
         verificarJocRolsComplet();
@@ -1117,7 +1472,7 @@
         document.getElementById('rols-feedback').className = "text-center text-sm font-semibold text-stone-500";
       } else {
         selectedRolItemId = itemId;
-        document.getElementById('rols-feedback').innerText = "Has seleccionat la definició. Ara prem sobre un departament o sobre la llista de Definicions de l'esquerra per moure-la lliurement.";
+        document.getElementById('rols-feedback').innerText = "Definició seleccionada. Prem ara sobre un departament o sobre la llista de Definicions de l'esquerra per moure-la lliurement.";
         document.getElementById('rols-feedback').className = "text-center text-sm font-semibold text-amber-600 animate-pulse";
       }
       renderDraggablesRols();
@@ -1195,10 +1550,8 @@
 
       if (totCorrecte) {
         rolsDesbloquejats = true;
-        document.getElementById('lock-rols').innerText = '✓';
-        document.getElementById('lock-rols').className = "text-green-300";
-
-        // Pintat verd definitiu d'èxit no interactiu
+        
+        // Pintat verd d'èxit definitiu
         ['direccio', 'produccio', 'diranimacio', 'muntatge', 'so'].forEach(cat => {
           const targetList = document.getElementById('list-' + cat);
           targetList.innerHTML = '';
@@ -1213,7 +1566,7 @@
         feedback.innerHTML = "🎉 Magnífic! S'ha definit correctament l'estructura humana del pipeline d'animació.";
         feedback.className = "text-center text-md font-bold text-green-600 animate-bounce";
 
-        actualitzarEstatQuizButton();
+        actualitzarBotonsNavegacio();
 
         setTimeout(() => {
           document.getElementById('rols-joc').classList.add('hidden');
@@ -1359,7 +1712,7 @@
         comentari.innerText = "Molt bona feina! Tens una sòlida base dels 12 principis clàssics de l'animació de Thomas i Johnston. Aconsegueix un 9 o 10 per desbloquejar la infografia descarregable!";
       } else if (puntuacio >= 5) {
         comentari.className = "text-orange-600 font-medium text-lg mb-8";
-        comentari.innerText = "Aprovat! Pot ser d'ajuda repassar els conceptes de foley, gestió de fites (milestones) i temps (timing) per assolir la puntuació mñaxima i descarregar la infografia.";
+        comentari.innerText = "Aprovat! Pot ser d'ajuda repassar els conceptes de foley, gestió de fites (milestones) i temps (timing) per assolir la puntuació màxima i descarregar la infografia.";
       } else {
         comentari.className = "text-red-500 font-medium text-lg mb-8";
         comentari.innerText = "Encara pots millorar. Et recomanem revisar les diferents tasques de preproducció, producció i postproducció per tornar-ho a provar.";
@@ -1368,7 +1721,8 @@
 
     // Inicialització en carregar l'HTML
     window.onload = function() {
-      canviarTab('fases');
+      inicialitzarEstatsJocs();
+      canviarTab('glossari');
     };
   </script>
 </body>
